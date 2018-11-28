@@ -174,7 +174,7 @@ extension TGAlbumPhotoPreviewVC: TGPhotoPreviewCellDelegate{
         }
         self.isAnimation = true
         if self.topBar!.frame.origin.y < 0 {
-            UIView.animate(withDuration: 0.3, delay: 0, options: [UIViewAnimationOptions.curveEaseOut], animations: {
+            UIView.animate(withDuration: 0.3, delay: 0, options: [UIView.AnimationOptions.curveEaseOut], animations: {
                 self.topBar!.frame.origin = CGPoint.zero
                 var originPoint = self.bottomBar!.frame.origin
                 originPoint.y = originPoint.y - self.bottomBar!.frame.height
@@ -191,7 +191,7 @@ extension TGAlbumPhotoPreviewVC: TGPhotoPreviewCellDelegate{
                 }
             })
         } else {
-            UIView.animate(withDuration: 0.3, delay: 0, options: [UIViewAnimationOptions.curveEaseOut], animations: {
+            UIView.animate(withDuration: 0.3, delay: 0, options: [UIView.AnimationOptions.curveEaseOut], animations: {
                 self.topBar!.frame.origin = CGPoint(x:0, y: -self.topBar!.frame.height)
                 var originPoint = self.bottomBar!.frame.origin
                 originPoint.y = originPoint.y + self.bottomBar!.frame.height

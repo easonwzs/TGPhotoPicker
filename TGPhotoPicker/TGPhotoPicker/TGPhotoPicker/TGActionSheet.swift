@@ -65,7 +65,7 @@ class TGActionSheet: UIView {
         self.delegate = delegate
         self.addSubview(coverView)
         self.coverView.addSubview(actionSheet)
-        if (title?.characters.count ?? 0) > 0{
+        if (title?.count ?? 0) > 0{
             self.createBtn(with: title!, bgColor: UIColor(white: 1, alpha: 1), titleColor: .lightGray, tagIndex: 0)
         }
         for i in 0..<otherTitles.count {

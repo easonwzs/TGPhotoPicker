@@ -72,11 +72,11 @@ class TGPhotoPicker: UIView {
         cv.register(TGPickerCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         cv.delegate = self
         cv.dataSource = self
-        cv.contentInset = UIEdgeInsetsMake(
-            config.padding,
-            config.leftAndRigthNoPadding ? 0 : config.padding,
-            config.padding,
-            self.bounds.width - config.mainColCount * config.mainCellWH - (config.mainColCount + (config.leftAndRigthNoPadding ? -1 : 0)) * config.padding
+        cv.contentInset = UIEdgeInsets(
+            top: config.padding,
+            left: config.leftAndRigthNoPadding ? 0 : config.padding,
+            bottom: config.padding,
+            right: self.bounds.width - config.mainColCount * config.mainCellWH - (config.mainColCount + (config.leftAndRigthNoPadding ? -1 : 0)) * config.padding
         )
         if #available(iOS 9.0, *) {
             cv.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(longPress)))
@@ -111,7 +111,7 @@ extension TGPhotoPicker : UICollectionViewDataSource{
     @available(iOS 9.0, *)
     @objc fileprivate func longPress(sender: UILongPressGestureRecognizer){
         switch sender.state {
-        case UIGestureRecognizerState.began:
+        case UIGestureRecognizer.State.began:
             let point = sender.location(in: self.collectionView)
             if let indexpath = self.collectionView?.indexPathForItem(at: point),let cell = self.collectionView?.cellForItem(at: indexpath) as? TGPickerCell{
                 guard cell.photoM != nil else {
@@ -122,7 +122,7 @@ extension TGPhotoPicker : UICollectionViewDataSource{
                 self.collectionView?.beginInteractiveMovementForItem(at: indexpath)
                 fromIndex = indexpath.item 
             }
-        case UIGestureRecognizerState.changed:
+        case UIGestureRecognizer.State.changed:
             let point = sender.location(in: self.collectionView)
             if let index = self.collectionView?.indexPathForItem(at: point)?.item{
                 if index >= 0 && index < self.tgphotos.count{
@@ -130,7 +130,7 @@ extension TGPhotoPicker : UICollectionViewDataSource{
                     toIndex = index
                 }
             }
-        case UIGestureRecognizerState.ended:
+        case UIGestureRecognizer.State.ended:
             self.collectionView?.endInteractiveMovement()
             
             if let cell = self.collectionView?.cellForItem(at: IndexPath(row: toIndex, section: 0)) as? TGPickerCell{
@@ -253,7 +253,7 @@ extension TGPhotoPicker : UICollectionViewDelegate{
         
         let animation = CATransition()
         animation.duration = 0.5
-        animation.subtype = kCATransitionFromRight
+        animation.subtype = CATransitionSubtype.fromRight
         UIApplication.shared.keyWindow?.layer.add(animation, forKey: nil)
         
         vc?.present(nav, animated: false, completion: nil)
@@ -268,7 +268,7 @@ extension TGPhotoPicker: TGActionSheetDelegate {
                 let cameraVC = TGCameraVCForiOS8()
                 cameraVC.callbackPicutureData = { [weak self] imgData in
                     let bigImg = UIImage(data:imgData!)
-                    let imgData = UIImageJPEGRepresentation(bigImg!,TGPhotoPickerConfig.shared.compressionQuality)
+                    let imgData = bigImg!.jpegData(compressionQuality: TGPhotoPickerConfig.shared.compressionQuality)
                     let smallImg = bigImg
                     let model = TGPhotoM()
                     model.bigImage = bigImg
@@ -284,7 +284,7 @@ extension TGPhotoPicker: TGActionSheetDelegate {
                 let cameraVC = TGCameraVC()
                 cameraVC.callbackPicutureData = { [weak self] imgData in
                     let bigImg = UIImage(data:imgData!)
-                    let imgData = UIImageJPEGRepresentation(bigImg!,TGPhotoPickerConfig.shared.compressionQuality)
+                    let imgData = bigImg!.jpegData(compressionQuality: TGPhotoPickerConfig.shared.compressionQuality)
                     let smallImg = bigImg
                     let model = TGPhotoM()
                     model.bigImage = bigImg
@@ -300,7 +300,7 @@ extension TGPhotoPicker: TGActionSheetDelegate {
                 let cameraVC = TGCameraVCForiOS8()
                 cameraVC.callbackPicutureData = { [weak self] imgData in
                     let bigImg = UIImage(data:imgData!)
-                    let imgData = UIImageJPEGRepresentation(bigImg!,TGPhotoPickerConfig.shared.compressionQuality)
+                    let imgData = bigImg!.jpegData(compressionQuality: TGPhotoPickerConfig.shared.compressionQuality)
                     let smallImg = bigImg
                     let model = TGPhotoM()
                     model.bigImage = bigImg

@@ -90,12 +90,12 @@ class TGPhotoPickerManager: NSObject {
     }
     
     func authorizeCamera(authorizeClosure:@escaping (AVAuthorizationStatus)->()){
-        let status = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
+        let status = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
         
         if status == .authorized{
             authorizeClosure(status)
         } else if status == .notDetermined {
-            AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo, completionHandler: { (granted) in
+            AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: { (granted) in
                 if granted {
                     authorizeClosure(.authorized)
                 }
@@ -114,7 +114,7 @@ class TGPhotoPickerManager: NSObject {
             if item.mediaType == .image {
                 getAssetOrigin(asset: item, dealImageSuccess: { (img, info) in
                     guard img != nil else{ return }
-                    if let zipImageData = UIImageJPEGRepresentation(img!,scale){
+                    if let zipImageData = img!.jpegData(compressionQuality: scale) {
                         let image = UIImage(data: zipImageData)
                         imageArr.append(image!)
                     }
@@ -161,7 +161,7 @@ extension TGPhotoPickerManager: TGActionSheetDelegate {
         case "photoLibraryAuthorize","cameraAuthorize":
             switch index {
             case 0:
-                let url = URL(string: UIApplicationOpenSettingsURLString)
+                let url = URL(string: UIApplication.openSettingsURLString)
                 if let url = url, UIApplication.shared.canOpenURL(url) {
                     if #available(iOS 10, *) {
                         if UIApplication.shared.canOpenURL(url){
@@ -185,7 +185,7 @@ extension TGPhotoPickerManager: TGActionSheetDelegate {
                     let cameraVC = TGCameraVCForiOS8()
                     cameraVC.callbackPicutureData = { imgData in
                         let bigImg = UIImage(data:imgData!)
-                        let imgData = UIImageJPEGRepresentation(bigImg!,TGPhotoPickerConfig.shared.compressionQuality)
+                        let imgData = bigImg!.jpegData(compressionQuality: TGPhotoPickerConfig.shared.compressionQuality)
                         let smallImg = bigImg
                         let model = TGPhotoM()
                         model.bigImage = bigImg
@@ -199,7 +199,7 @@ extension TGPhotoPickerManager: TGActionSheetDelegate {
                     let cameraVC = TGCameraVC()
                     cameraVC.callbackPicutureData = { imgData in
                         let bigImg = UIImage(data:imgData!)
-                        let imgData = UIImageJPEGRepresentation(bigImg!,TGPhotoPickerConfig.shared.compressionQuality)
+                        let imgData = bigImg!.jpegData(compressionQuality: TGPhotoPickerConfig.shared.compressionQuality)
                         let smallImg = bigImg
                         let model = TGPhotoM()
                         model.bigImage = bigImg
@@ -213,7 +213,7 @@ extension TGPhotoPickerManager: TGActionSheetDelegate {
                     let cameraVC = TGCameraVCForiOS8()
                     cameraVC.callbackPicutureData = { imgData in
                         let bigImg = UIImage(data:imgData!)
-                        let imgData = UIImageJPEGRepresentation(bigImg!,TGPhotoPickerConfig.shared.compressionQuality)
+                        let imgData = bigImg!.jpegData(compressionQuality: TGPhotoPickerConfig.shared.compressionQuality)
                         let smallImg = bigImg
                         let model = TGPhotoM()
                         model.bigImage = bigImg

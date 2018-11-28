@@ -16,12 +16,12 @@ class TGPhotoListCell: UITableViewCell {
     class func cellWithTableView(_ tableView: UITableView) -> TGPhotoListCell{
         var cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? TGPhotoListCell
         if cell == nil {
-            cell = TGPhotoListCell(style: UITableViewCellStyle.default, reuseIdentifier: cellIdentifier)
+            cell = TGPhotoListCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: cellIdentifier)
         }
         return cell!
     }
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
     }

@@ -23,7 +23,7 @@ class TGCameraVC: UIViewController {
     fileprivate var showImageContainerView: UIView?
     fileprivate var showImageView: UIImageView?
     fileprivate var picData: Data?
-    private var flashMode: AVCaptureFlashMode = .auto
+    private var flashMode: AVCaptureDevice.FlashMode = .auto
     private weak var flashButton: UIButton?
     
     override func viewDidLoad() {
@@ -56,7 +56,7 @@ class TGCameraVC: UIViewController {
     }
 
     private func setupCamera() {
-        AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo) { success in
+        AVCaptureDevice.requestAccess(for: AVMediaType.video) { success in
             if !success {
                 let alertVC = UIAlertController(title: TGPhotoPickerConfig.shared.cameraUsage, message: TGPhotoPickerConfig.shared.cameraUsageTip, preferredStyle: .actionSheet)
                 alertVC.addAction(UIAlertAction(title: TGPhotoPickerConfig.shared.confirmTitle, style: .default, handler: nil))
@@ -64,7 +64,7 @@ class TGCameraVC: UIViewController {
             }
         }
         device = cameraWithPosistion(.back)
-        input = try? AVCaptureDeviceInput(device: device)
+        input = try? AVCaptureDeviceInput(device: device!)
         guard input != nil else {
             return
         }
@@ -72,24 +72,24 @@ class TGCameraVC: UIViewController {
         imageOutput = AVCapturePhotoOutput()
         session = AVCaptureSession()
         session?.beginConfiguration()
-        session?.sessionPreset = TGPhotoPickerConfig.shared.sessionPreset
-        if session!.canAddInput(input) {
-            session!.addInput(input)
+        session?.sessionPreset = AVCaptureSession.Preset(rawValue: TGPhotoPickerConfig.shared.sessionPreset)
+        if session!.canAddInput(input!) {
+            session!.addInput(input!)
         }
-        if session!.canAddOutput(imageOutput) {
-            session!.addOutput(imageOutput)
+        if session!.canAddOutput(imageOutput!) {
+            session!.addOutput(imageOutput!)
         }
-        previewLayer = AVCaptureVideoPreviewLayer(session: session)
+        previewLayer = AVCaptureVideoPreviewLayer(session: session!)
         previewLayer?.frame = view.bounds
-        previewLayer?.videoGravity = TGPhotoPickerConfig.shared.videoGravity
+        previewLayer?.videoGravity = AVLayerVideoGravity(rawValue: TGPhotoPickerConfig.shared.videoGravity)
         view.layer.addSublayer(previewLayer!)
         session?.commitConfiguration()
         session?.startRunning()
     }
     
-    private func cameraWithPosistion(_ position: AVCaptureDevicePosition) -> AVCaptureDevice {
-        let type = AVCaptureDeviceType(rawValue: TGPhotoPickerConfig.shared.captureDeviceType.rawValue)
-        return AVCaptureDevice.defaultDevice(withDeviceType: type, mediaType: AVMediaTypeVideo, position: position)
+    private func cameraWithPosistion(_ position: AVCaptureDevice.Position) -> AVCaptureDevice {
+        let type = AVCaptureDevice.DeviceType(rawValue: TGPhotoPickerConfig.shared.captureDeviceType.rawValue)
+        return AVCaptureDevice.default(type, for: AVMediaType.video, position: position)!
     }
     
     private func setupUI() {
@@ -187,7 +187,7 @@ class TGCameraVC: UIViewController {
     }
     
     @objc private func takePhotoAction() {
-        let connection = imageOutput?.connection(withMediaType: AVMediaTypeVideo)
+        let connection = imageOutput?.connection(with: AVMediaType.video)
         guard connection != nil else {
             return
         }
@@ -199,18 +199,18 @@ class TGCameraVC: UIViewController {
     @objc private func changeCameraPositionAction() {
         let animation = CATransition()
         animation.duration = 0.5
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        animation.type = TGPhotoPickerConfig.shared.transitionType
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        animation.type = CATransitionType(rawValue: TGPhotoPickerConfig.shared.transitionType)
         
         let newDevice: AVCaptureDevice!
         let newInput: AVCaptureDeviceInput?
         let position = input?.device.position
         if position == .front {
             newDevice = cameraWithPosistion(.back)
-            animation.subtype = kCATransitionFromLeft
+            animation.subtype = CATransitionSubtype.fromLeft
         } else {
             newDevice = cameraWithPosistion(.front)
-            animation.subtype = kCATransitionFromRight
+            animation.subtype = CATransitionSubtype.fromRight
         }
         newInput = try? AVCaptureDeviceInput(device: newDevice)
         guard newInput != nil else{
@@ -220,12 +220,12 @@ class TGCameraVC: UIViewController {
         previewLayer?.add(animation, forKey: nil)
         
         session?.beginConfiguration()
-        session?.removeInput(input)
-        if session!.canAddInput(newInput) {
+        session?.removeInput(input!)
+        if session!.canAddInput(newInput!) {
             session?.addInput(newInput!)
             input = newInput
         } else {
-            session?.addInput(input)
+            session?.addInput(input!)
         }
         session?.commitConfiguration()
     }
@@ -243,7 +243,7 @@ class TGCameraVC: UIViewController {
 
 @available(iOS 10.0, *)
 extension TGCameraVC: AVCapturePhotoCaptureDelegate {
-    func capture(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhotoSampleBuffer photoSampleBuffer: CMSampleBuffer?, previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Error?) {
+    func photoOutput(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?, previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Error?) {
         if error != nil {
             print("error = \(String(describing: error?.localizedDescription))")
         } else {

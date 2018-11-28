@@ -21,7 +21,7 @@ class TGCameraVCForiOS8: UIViewController {
     fileprivate var input : AVCaptureDeviceInput?
     fileprivate var showImageContainerView: UIView?
     fileprivate var showImageView: UIImageView?
-    fileprivate var flashMode: AVCaptureFlashMode = .auto
+    fileprivate var flashMode: AVCaptureDevice.FlashMode = .auto
     fileprivate var picData: Data?
     fileprivate var image: UIImage?
     
@@ -244,11 +244,11 @@ class TGCameraVCForiOS8: UIViewController {
         } catch {
             return
         }
-        if device?.isFocusModeSupported(AVCaptureFocusMode.autoFocus) ?? false{
+        if device?.isFocusModeSupported(AVCaptureDevice.FocusMode.autoFocus) ?? false{
             device?.focusPointOfInterest = focusPoint
             device?.focusMode = .autoFocus
         }
-        if device?.isExposureModeSupported(AVCaptureExposureMode.autoExpose) ?? false{
+        if device?.isExposureModeSupported(AVCaptureDevice.ExposureMode.autoExpose) ?? false{
             device?.exposurePointOfInterest = focusPoint
             device?.exposureMode = .autoExpose
         }
@@ -272,19 +272,19 @@ class TGCameraVCForiOS8: UIViewController {
     }
     
     @objc fileprivate func changeCameraPositionAction() {
-        let cameraCount = AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo).count
+        let cameraCount = AVCaptureDevice.devices(for: AVMediaType.video).count
         guard cameraCount>0 else { return }
         
         let rotaionAnim = CATransition()
-        rotaionAnim.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        rotaionAnim.type = TGPhotoPickerConfig.shared.transitionType
+        rotaionAnim.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        rotaionAnim.type = CATransitionType(rawValue: TGPhotoPickerConfig.shared.transitionType)
         rotaionAnim.duration = 0.5
         
         guard let videoInput = input else { return }
-        let position : AVCaptureDevicePosition = videoInput.device.position == .front ? .back : .front
-        rotaionAnim.subtype = (position == .front) ? "fromRight" : "fromLeft"
+        let position : AVCaptureDevice.Position = videoInput.device.position == .front ? .back : .front
+        rotaionAnim.subtype = CATransitionSubtype(rawValue: (position == .front) ? "fromRight" : "fromLeft")
         
-        guard let devices = AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo) as? [AVCaptureDevice] else { return }
+        let devices = AVCaptureDevice.devices(for: AVMediaType.video)
         guard let newDevice = devices.filter({$0.position == position}).first else { return }
         guard let newVideoInput = try? AVCaptureDeviceInput(device: newDevice) else { return }
         
@@ -296,19 +296,19 @@ class TGCameraVCForiOS8: UIViewController {
             session.addInput(newVideoInput)
             self.input = newVideoInput
         } else {
-            session.addInput(input)
+            session.addInput(input!)
         }
         session.commitConfiguration()
     }
     
     @objc fileprivate func takePhotoAction(){
-        guard let videoConnection = imageOutput.connection(withMediaType: AVMediaTypeVideo) else { return }
+        guard let videoConnection = imageOutput.connection(with: AVMediaType.video) else { return }
         imageOutput.captureStillImageAsynchronously(from: videoConnection) { (imageDataSampleBuffer, error) in
             if error != nil {
                 print("error = \(String(describing: error?.localizedDescription))")
             } else {
                 guard imageDataSampleBuffer != nil  else {return}
-                guard let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(imageDataSampleBuffer) else {return}
+                guard let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(imageDataSampleBuffer!) else {return}
                 
                 self.picData = imageData
                 self.showImageContainerView?.isHidden = false
@@ -346,17 +346,17 @@ class TGCameraVCForiOS8: UIViewController {
     }
     
     fileprivate func setupVideo() {
-        guard let devices = AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo) as? [AVCaptureDevice] else {return}
+        let devices = AVCaptureDevice.devices(for: AVMediaType.video)
         guard let device = devices.filter({$0.position == .back}).first else {return}
         guard let videoInput = try? AVCaptureDeviceInput(device: device) else {return}
         self.input = videoInput
         self.device = device
         
-        if session.canSetSessionPreset(TGPhotoPickerConfig.shared.sessionPreset) {
-            session.sessionPreset = TGPhotoPickerConfig.shared.sessionPreset
+        if session.canSetSessionPreset(AVCaptureSession.Preset(rawValue: TGPhotoPickerConfig.shared.sessionPreset)) {
+            session.sessionPreset = AVCaptureSession.Preset(rawValue: TGPhotoPickerConfig.shared.sessionPreset)
         }
-        if session.canAddInput(input) {
-            session.addInput(input)
+        if session.canAddInput(input!) {
+            session.addInput(input!)
         }else{
             session.addInput(videoInput)
         }
@@ -367,7 +367,7 @@ class TGCameraVCForiOS8: UIViewController {
         }
         
         previewLayer.frame = view.bounds
-        self.previewLayer.videoGravity = TGPhotoPickerConfig.shared.videoGravity
+        self.previewLayer.videoGravity = AVLayerVideoGravity(rawValue: TGPhotoPickerConfig.shared.videoGravity)
         view.layer.insertSublayer(previewLayer, at: 0)
         session.startRunning()
         
@@ -376,11 +376,11 @@ class TGCameraVCForiOS8: UIViewController {
         } catch {
             return
         }
-        if device.isFlashModeSupported(AVCaptureFlashMode.auto){
+        if device.isFlashModeSupported(AVCaptureDevice.FlashMode.auto){
             device.flashMode = .auto
         }
         
-        if device.isWhiteBalanceModeSupported(AVCaptureWhiteBalanceMode.autoWhiteBalance){
+        if device.isWhiteBalanceModeSupported(AVCaptureDevice.WhiteBalanceMode.autoWhiteBalance){
             device.whiteBalanceMode = .autoWhiteBalance
         }
         device.unlockForConfiguration()

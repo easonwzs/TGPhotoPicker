@@ -55,7 +55,7 @@ class ViewController: UIViewController {
             button.setImage(imageTuples.unselect, for: .normal)
             button.setImage(imageTuples.select, for: .selected)
             //button.setTitle(String($0), for: .normal)
-            button.addTarget(self,action: #selector(tap(_:)),for: UIControlEvents.touchUpInside)
+            button.addTarget(self,action: #selector(tap(_:)),for: UIControl.Event.touchUpInside)
             self.view.addSubview(button)
         }
         
@@ -77,7 +77,7 @@ class ViewController: UIViewController {
             button.tag = 2000+$0
             button.setTitle(" \(TGCheckboxPosition(rawValue: $0)!)", for: .normal)
             button.setTitleColor(TGPhotoPickerConfig.shared.tinColor, for: .selected)
-            button.addTarget(self,action: #selector(position(_:)),for: UIControlEvents.touchUpInside)
+            button.addTarget(self,action: #selector(position(_:)),for: UIControl.Event.touchUpInside)
             self.view.addSubview(button)
         }
         
@@ -95,7 +95,7 @@ class ViewController: UIViewController {
             button.tag = 3000+$0
             button.setTitle(" \(TGSelectKind(rawValue: $0)!)", for: .normal)
             button.setTitleColor(TGPhotoPickerConfig.shared.tinColor, for: .selected)
-            button.addTarget(self,action: #selector(selectKind(_:)),for: UIControlEvents.touchUpInside)
+            button.addTarget(self,action: #selector(selectKind(_:)),for: UIControl.Event.touchUpInside)
             self.view.addSubview(button)
         }
         
@@ -113,7 +113,7 @@ class ViewController: UIViewController {
             button.tag = 4000+$0
             button.setTitle(" \(TGIndicatorPosition(rawValue: $0)!)", for: .normal)
             button.setTitleColor(TGPhotoPickerConfig.shared.tinColor, for: .selected)
-            button.addTarget(self,action: #selector(indicatorPosition(_:)),for: UIControlEvents.touchUpInside)
+            button.addTarget(self,action: #selector(indicatorPosition(_:)),for: UIControl.Event.touchUpInside)
             self.view.addSubview(button)
         }
         
@@ -135,7 +135,7 @@ class ViewController: UIViewController {
         cornerSlider.minimumValue = 0
         cornerSlider.maximumValue = Float(TGPhotoPickerConfig.shared.checkboxCellWH)
         cornerSlider.value = Float(TGPhotoPickerConfig.shared.checkboxCorner)
-        cornerSlider.addTarget(self,action: #selector(cornerChangedAction),for: UIControlEvents.valueChanged)
+        cornerSlider.addTarget(self,action: #selector(cornerChangedAction),for: UIControl.Event.valueChanged)
         self.view.addSubview(cornerSlider)
         
         self.view.addSubview(paddingLabel)
@@ -148,7 +148,7 @@ class ViewController: UIViewController {
         paddingSlider.minimumValue = 0
         paddingSlider.maximumValue = 6
         paddingSlider.value = Float(TGPhotoPickerConfig.shared.checkboxPadding)
-        paddingSlider.addTarget(self,action: #selector(paddingChangedAction),for: UIControlEvents.valueChanged)
+        paddingSlider.addTarget(self,action: #selector(paddingChangedAction),for: UIControl.Event.valueChanged)
         self.view.addSubview(paddingSlider)
         
         self.view.addSubview(lineWidthLabel)
@@ -161,7 +161,7 @@ class ViewController: UIViewController {
         lineWidthSlider.minimumValue = 1
         lineWidthSlider.maximumValue = 2
         lineWidthSlider.value = Float(TGPhotoPickerConfig.shared.checkboxLineW)
-        lineWidthSlider.addTarget(self,action: #selector(lineWidthChangedAction),for: UIControlEvents.valueChanged)
+        lineWidthSlider.addTarget(self,action: #selector(lineWidthChangedAction),for: UIControl.Event.valueChanged)
         self.view.addSubview(lineWidthSlider)
         
         self.view.addSubview(endAlphaLabel)
@@ -174,7 +174,7 @@ class ViewController: UIViewController {
         endAlphaSlider.minimumValue = 0.2
         endAlphaSlider.maximumValue = 1
         endAlphaSlider.value = Float(TGPhotoPickerConfig.shared.checkboxEndingAlpha)
-        endAlphaSlider.addTarget(self,action: #selector(endAlphaChangedAction),for: UIControlEvents.valueChanged)
+        endAlphaSlider.addTarget(self,action: #selector(endAlphaChangedAction),for: UIControl.Event.valueChanged)
         self.view.addSubview(endAlphaSlider)
         
         self.view.addSubview(maskAlphaLabel)
@@ -187,7 +187,7 @@ class ViewController: UIViewController {
         maskAlphaSlider.minimumValue = 0.3
         maskAlphaSlider.maximumValue = 0.8
         maskAlphaSlider.value = Float(TGPhotoPickerConfig.shared.maskAlpha)
-        maskAlphaSlider.addTarget(self,action: #selector(maskAlphaChangedAction),for: UIControlEvents.valueChanged)
+        maskAlphaSlider.addTarget(self,action: #selector(maskAlphaChangedAction),for: UIControl.Event.valueChanged)
         self.view.addSubview(maskAlphaSlider)
         
         self.view.addSubview(maxImageCountLabel)
@@ -200,7 +200,7 @@ class ViewController: UIViewController {
         maxImageCountSlider.minimumValue = 1
         maxImageCountSlider.maximumValue = 99
         maxImageCountSlider.value = Float(TGPhotoPickerConfig.shared.maxImageCount)
-        maxImageCountSlider.addTarget(self,action: #selector(maxImageCountChangedAction),for: UIControlEvents.valueChanged)
+        maxImageCountSlider.addTarget(self,action: #selector(maxImageCountChangedAction),for: UIControl.Event.valueChanged)
         self.view.addSubview(maxImageCountSlider)
         
         self.view.addSubview(checkboxCellSizeLabel)
@@ -213,7 +213,7 @@ class ViewController: UIViewController {
         checkboxCellSizeSlider.minimumValue = 20
         checkboxCellSizeSlider.maximumValue = 25
         checkboxCellSizeSlider.value = Float(TGPhotoPickerConfig.shared.checkboxCellWH)
-        checkboxCellSizeSlider.addTarget(self,action: #selector(checkboxCellSizeAction),for: UIControlEvents.valueChanged)
+        checkboxCellSizeSlider.addTarget(self,action: #selector(checkboxCellSizeAction),for: UIControl.Event.valueChanged)
         self.view.addSubview(checkboxCellSizeSlider)
         
         self.view.addSubview(shadowWHLabel)
@@ -226,7 +226,7 @@ class ViewController: UIViewController {
         shadowWHSlider.minimumValue = 0
         shadowWHSlider.maximumValue = 4
         shadowWHSlider.value = Float(TGPhotoPickerConfig.shared.shadowW)
-        shadowWHSlider.addTarget(self,action: #selector(shadowWHAction),for: UIControlEvents.valueChanged)
+        shadowWHSlider.addTarget(self,action: #selector(shadowWHAction),for: UIControl.Event.valueChanged)
         self.view.addSubview(shadowWHSlider)
         
         let randomButton: UIButton = UIButton(frame: CGRect(x: 0, y: TGPhotoPickerConfig.ScreenH-20, width: TGPhotoPickerConfig.ScreenW, height: 20))
@@ -234,7 +234,7 @@ class ViewController: UIViewController {
         randomButton.setTitle("tinColor", for: .normal)
         randomButton.setTitleColor(.white, for: .normal)
         randomButton.backgroundColor = TGPhotoPickerConfig.shared.tinColor
-        randomButton.addTarget(self,action: #selector(randomColor(_:)),for: UIControlEvents.touchUpInside)
+        randomButton.addTarget(self,action: #selector(randomColor(_:)),for: UIControl.Event.touchUpInside)
         self.view.addSubview(randomButton)
         
         let useSelectMaskButton: UIButton = UIButton(frame: CGRect(x: 0, y: TGPhotoPickerConfig.ScreenH-40, width: TGPhotoPickerConfig.ScreenW/3, height: 20))
@@ -244,7 +244,7 @@ class ViewController: UIViewController {
         useSelectMaskButton.setTitleColor(TGPhotoPickerConfig.shared.tinColor, for: .selected)
         useSelectMaskButton.backgroundColor = self.view.backgroundColor
         useSelectMaskButton.isSelected = TGPhotoPickerConfig.shared.useSelectMask
-        useSelectMaskButton.addTarget(self,action: #selector(useSelectMaskAction(_:)),for: UIControlEvents.touchUpInside)
+        useSelectMaskButton.addTarget(self,action: #selector(useSelectMaskAction(_:)),for: UIControl.Event.touchUpInside)
         self.view.addSubview(useSelectMaskButton)
         
         let immediateTapSelectButton: UIButton = UIButton(frame: CGRect(x: useSelectMaskButton.frame.maxX, y: TGPhotoPickerConfig.ScreenH-40, width: TGPhotoPickerConfig.ScreenW/3, height: 20))
@@ -254,7 +254,7 @@ class ViewController: UIViewController {
         immediateTapSelectButton.setTitleColor(TGPhotoPickerConfig.shared.tinColor, for: .selected)
         immediateTapSelectButton.backgroundColor = self.view.backgroundColor
         immediateTapSelectButton.isSelected = TGPhotoPickerConfig.shared.immediateTapSelect
-        immediateTapSelectButton.addTarget(self,action: #selector(immediateTapSelectAction(_:)),for: UIControlEvents.touchUpInside)
+        immediateTapSelectButton.addTarget(self,action: #selector(immediateTapSelectAction(_:)),for: UIControl.Event.touchUpInside)
         self.view.addSubview(immediateTapSelectButton)
         
         let showSelectNumberButton: UIButton = UIButton(frame: CGRect(x: immediateTapSelectButton.frame.maxX, y: TGPhotoPickerConfig.ScreenH-40, width: TGPhotoPickerConfig.ScreenW/3, height: 20))
@@ -264,7 +264,7 @@ class ViewController: UIViewController {
         showSelectNumberButton.setTitleColor(TGPhotoPickerConfig.shared.tinColor, for: .selected)
         showSelectNumberButton.backgroundColor = self.view.backgroundColor
         showSelectNumberButton.isSelected = TGPhotoPickerConfig.shared.isShowNumber
-        showSelectNumberButton.addTarget(self,action: #selector(showSelectNumberAction(_:)),for: UIControlEvents.touchUpInside)
+        showSelectNumberButton.addTarget(self,action: #selector(showSelectNumberAction(_:)),for: UIControl.Event.touchUpInside)
         self.view.addSubview(showSelectNumberButton)
         
         let checkboxAnimateButton: UIButton = UIButton(frame: CGRect(x: 0, y: TGPhotoPickerConfig.ScreenH-60, width: TGPhotoPickerConfig.ScreenW/3, height: 20))
@@ -274,7 +274,7 @@ class ViewController: UIViewController {
         checkboxAnimateButton.setTitleColor(TGPhotoPickerConfig.shared.tinColor, for: .selected)
         checkboxAnimateButton.backgroundColor = self.view.backgroundColor
         checkboxAnimateButton.isSelected = TGPhotoPickerConfig.shared.checkboxAnimate
-        checkboxAnimateButton.addTarget(self,action: #selector(checkboxAnimateAction(_:)),for: UIControlEvents.touchUpInside)
+        checkboxAnimateButton.addTarget(self,action: #selector(checkboxAnimateAction(_:)),for: UIControl.Event.touchUpInside)
         self.view.addSubview(checkboxAnimateButton)
 
         let useCustomSmartCollectionsMaskButton: UIButton = UIButton(frame: CGRect(x: checkboxAnimateButton.frame.maxX, y: TGPhotoPickerConfig.ScreenH-60, width: TGPhotoPickerConfig.ScreenW/3, height: 20))
@@ -284,7 +284,7 @@ class ViewController: UIViewController {
         useCustomSmartCollectionsMaskButton.setTitleColor(TGPhotoPickerConfig.shared.tinColor, for: .selected)
         useCustomSmartCollectionsMaskButton.backgroundColor = self.view.backgroundColor
         useCustomSmartCollectionsMaskButton.isSelected = TGPhotoPickerConfig.shared.useCustomSmartCollectionsMask
-        useCustomSmartCollectionsMaskButton.addTarget(self,action: #selector(useCustomSmartCollectionsMaskAction(_:)),for: UIControlEvents.touchUpInside)
+        useCustomSmartCollectionsMaskButton.addTarget(self,action: #selector(useCustomSmartCollectionsMaskAction(_:)),for: UIControl.Event.touchUpInside)
         self.view.addSubview(useCustomSmartCollectionsMaskButton)
         
         let useChineseAlbumNameButton: UIButton = UIButton(frame: CGRect(x: useCustomSmartCollectionsMaskButton.frame.maxX, y: TGPhotoPickerConfig.ScreenH-60, width: TGPhotoPickerConfig.ScreenW/3, height: 20))
@@ -294,7 +294,7 @@ class ViewController: UIViewController {
         useChineseAlbumNameButton.setTitleColor(TGPhotoPickerConfig.shared.tinColor, for: .selected)
         useChineseAlbumNameButton.backgroundColor = self.view.backgroundColor
         useChineseAlbumNameButton.isSelected = TGPhotoPickerConfig.shared.useChineseAlbumName
-        useChineseAlbumNameButton.addTarget(self,action: #selector(useChineseAlbumNameAction(_:)),for: UIControlEvents.touchUpInside)
+        useChineseAlbumNameButton.addTarget(self,action: #selector(useChineseAlbumNameAction(_:)),for: UIControl.Event.touchUpInside)
         self.view.addSubview(useChineseAlbumNameButton)
         
         let showEmptyAlbumButton: UIButton = UIButton(frame: CGRect(x: 0, y: TGPhotoPickerConfig.ScreenH-80, width: TGPhotoPickerConfig.ScreenW/3, height: 20))
@@ -304,7 +304,7 @@ class ViewController: UIViewController {
         showEmptyAlbumButton.setTitleColor(TGPhotoPickerConfig.shared.tinColor, for: .selected)
         showEmptyAlbumButton.backgroundColor = self.view.backgroundColor
         showEmptyAlbumButton.isSelected = TGPhotoPickerConfig.shared.isShowEmptyAlbum
-        showEmptyAlbumButton.addTarget(self,action: #selector(showEmptyAlbumAction(_:)),for: UIControlEvents.touchUpInside)
+        showEmptyAlbumButton.addTarget(self,action: #selector(showEmptyAlbumAction(_:)),for: UIControl.Event.touchUpInside)
         self.view.addSubview(showEmptyAlbumButton)
         
         let ascendingButton: UIButton = UIButton(frame: CGRect(x: showEmptyAlbumButton.frame.maxX, y: TGPhotoPickerConfig.ScreenH-80, width: TGPhotoPickerConfig.ScreenW/3, height: 20))
@@ -314,7 +314,7 @@ class ViewController: UIViewController {
         ascendingButton.setTitleColor(TGPhotoPickerConfig.shared.tinColor, for: .selected)
         ascendingButton.backgroundColor = self.view.backgroundColor
         ascendingButton.isSelected = TGPhotoPickerConfig.shared.ascending
-        ascendingButton.addTarget(self,action: #selector(ascendingAction(_:)),for: UIControlEvents.touchUpInside)
+        ascendingButton.addTarget(self,action: #selector(ascendingAction(_:)),for: UIControl.Event.touchUpInside)
         self.view.addSubview(ascendingButton)
         
         let showBorderButton: UIButton = UIButton(frame: CGRect(x: ascendingButton.frame.maxX, y: TGPhotoPickerConfig.ScreenH-80, width: TGPhotoPickerConfig.ScreenW/3, height: 20))
@@ -324,7 +324,7 @@ class ViewController: UIViewController {
         showBorderButton.setTitleColor(TGPhotoPickerConfig.shared.tinColor, for: .selected)
         showBorderButton.backgroundColor = self.view.backgroundColor
         showBorderButton.isSelected = TGPhotoPickerConfig.shared.isShowBorder
-        showBorderButton.addTarget(self,action: #selector(showBorderAction(_:)),for: UIControlEvents.touchUpInside)
+        showBorderButton.addTarget(self,action: #selector(showBorderAction(_:)),for: UIControl.Event.touchUpInside)
         self.view.addSubview(showBorderButton)
         
         let removeButtonHiddenButton: UIButton = UIButton(frame: CGRect(x: 0, y: TGPhotoPickerConfig.ScreenH-100, width: TGPhotoPickerConfig.ScreenW/3, height: 20))
@@ -334,7 +334,7 @@ class ViewController: UIViewController {
         removeButtonHiddenButton.setTitleColor(TGPhotoPickerConfig.shared.tinColor, for: .selected)
         removeButtonHiddenButton.backgroundColor = self.view.backgroundColor
         removeButtonHiddenButton.isSelected = TGPhotoPickerConfig.shared.isRemoveButtonHidden
-        removeButtonHiddenButton.addTarget(self,action: #selector(isRemoveButtonHiddenAction(_:)),for: UIControlEvents.touchUpInside)
+        removeButtonHiddenButton.addTarget(self,action: #selector(isRemoveButtonHiddenAction(_:)),for: UIControl.Event.touchUpInside)
         self.view.addSubview(removeButtonHiddenButton)
         
         let leftAndRigthNoPaddingButton: UIButton = UIButton(frame: CGRect(x: removeButtonHiddenButton.frame.maxX, y: TGPhotoPickerConfig.ScreenH-100, width: TGPhotoPickerConfig.ScreenW/3, height: 20))
@@ -344,7 +344,7 @@ class ViewController: UIViewController {
         leftAndRigthNoPaddingButton.setTitleColor(TGPhotoPickerConfig.shared.tinColor, for: .selected)
         leftAndRigthNoPaddingButton.backgroundColor = self.view.backgroundColor
         leftAndRigthNoPaddingButton.isSelected = TGPhotoPickerConfig.shared.leftAndRigthNoPadding
-        leftAndRigthNoPaddingButton.addTarget(self,action: #selector(leftAndRigthNoPaddingAction(_:)),for: UIControlEvents.touchUpInside)
+        leftAndRigthNoPaddingButton.addTarget(self,action: #selector(leftAndRigthNoPaddingAction(_:)),for: UIControl.Event.touchUpInside)
         self.view.addSubview(leftAndRigthNoPaddingButton)
         
         let useiOS8CameraButton: UIButton = UIButton(frame: CGRect(x: leftAndRigthNoPaddingButton.frame.maxX, y: TGPhotoPickerConfig.ScreenH-100, width: TGPhotoPickerConfig.ScreenW/3, height: 20))
@@ -354,7 +354,7 @@ class ViewController: UIViewController {
         useiOS8CameraButton.setTitleColor(TGPhotoPickerConfig.shared.tinColor, for: .selected)
         useiOS8CameraButton.backgroundColor = self.view.backgroundColor
         useiOS8CameraButton.isSelected = TGPhotoPickerConfig.shared.useiOS8Camera
-        useiOS8CameraButton.addTarget(self,action: #selector(useiOS8CameraAction(_:)),for: UIControlEvents.touchUpInside)
+        useiOS8CameraButton.addTarget(self,action: #selector(useiOS8CameraAction(_:)),for: UIControl.Event.touchUpInside)
         self.view.addSubview(useiOS8CameraButton)
         
         let saveImageButton: UIButton = UIButton(frame: CGRect(x: 0, y: TGPhotoPickerConfig.ScreenH-120, width: TGPhotoPickerConfig.ScreenW/3, height: 20))
@@ -364,7 +364,7 @@ class ViewController: UIViewController {
         saveImageButton.setTitleColor(TGPhotoPickerConfig.shared.tinColor, for: .selected)
         saveImageButton.backgroundColor = self.view.backgroundColor
         saveImageButton.isSelected = TGPhotoPickerConfig.shared.saveImageToPhotoAlbum
-        saveImageButton.addTarget(self,action: #selector(saveImageAction(_:)),for: UIControlEvents.touchUpInside)
+        saveImageButton.addTarget(self,action: #selector(saveImageAction(_:)),for: UIControl.Event.touchUpInside)
         self.view.addSubview(saveImageButton)
         
         let customSheetButton: UIButton = UIButton(frame: CGRect(x: saveImageButton.frame.maxX, y: TGPhotoPickerConfig.ScreenH-120, width: TGPhotoPickerConfig.ScreenW/3, height: 20))
@@ -374,7 +374,7 @@ class ViewController: UIViewController {
         customSheetButton.setTitleColor(TGPhotoPickerConfig.shared.tinColor, for: .selected)
         customSheetButton.backgroundColor = self.view.backgroundColor
         customSheetButton.isSelected = TGPhotoPickerConfig.shared.useCustomActionSheet
-        customSheetButton.addTarget(self,action: #selector(useCustomActionSheetAction(_:)),for: UIControlEvents.touchUpInside)
+        customSheetButton.addTarget(self,action: #selector(useCustomActionSheetAction(_:)),for: UIControl.Event.touchUpInside)
         self.view.addSubview(customSheetButton)
         
         let editButton: UIButton = UIButton(frame: CGRect(x: customSheetButton.frame.maxX, y: TGPhotoPickerConfig.ScreenH-120, width: TGPhotoPickerConfig.ScreenW/3, height: 20))
@@ -384,7 +384,7 @@ class ViewController: UIViewController {
         editButton.setTitleColor(TGPhotoPickerConfig.shared.tinColor, for: .selected)
         editButton.backgroundColor = self.view.backgroundColor
         editButton.isSelected = TGPhotoPickerConfig.shared.isShowEditButton
-        editButton.addTarget(self,action: #selector(showEditAction(_:)),for: UIControlEvents.touchUpInside)
+        editButton.addTarget(self,action: #selector(showEditAction(_:)),for: UIControl.Event.touchUpInside)
         self.view.addSubview(editButton)
         
         let previewButton: UIButton = UIButton(frame: CGRect(x: 0, y: TGPhotoPickerConfig.ScreenH-140, width: TGPhotoPickerConfig.ScreenW/3, height: 20))
@@ -394,7 +394,7 @@ class ViewController: UIViewController {
         previewButton.setTitleColor(TGPhotoPickerConfig.shared.tinColor, for: .selected)
         previewButton.backgroundColor = self.view.backgroundColor
         previewButton.isSelected = TGPhotoPickerConfig.shared.isShowPreviewButton
-        previewButton.addTarget(self,action: #selector(showPreviewAction(_:)),for: UIControlEvents.touchUpInside)
+        previewButton.addTarget(self,action: #selector(showPreviewAction(_:)),for: UIControl.Event.touchUpInside)
         self.view.addSubview(previewButton)
         
         let reselectButton: UIButton = UIButton(frame: CGRect(x: previewButton.frame.maxX, y: TGPhotoPickerConfig.ScreenH-140, width: TGPhotoPickerConfig.ScreenW/3, height: 20))
@@ -404,7 +404,7 @@ class ViewController: UIViewController {
         reselectButton.setTitleColor(TGPhotoPickerConfig.shared.tinColor, for: .selected)
         reselectButton.backgroundColor = self.view.backgroundColor
         reselectButton.isSelected = TGPhotoPickerConfig.shared.isShowReselect
-        reselectButton.addTarget(self,action: #selector(showReselectAction(_:)),for: UIControlEvents.touchUpInside)
+        reselectButton.addTarget(self,action: #selector(showReselectAction(_:)),for: UIControl.Event.touchUpInside)
         self.view.addSubview(reselectButton)
         
         let originalButton: UIButton = UIButton(frame: CGRect(x: reselectButton.frame.maxX, y: TGPhotoPickerConfig.ScreenH-140, width: TGPhotoPickerConfig.ScreenW/3, height: 20))
@@ -414,7 +414,7 @@ class ViewController: UIViewController {
         originalButton.setTitleColor(TGPhotoPickerConfig.shared.tinColor, for: .selected)
         originalButton.backgroundColor = self.view.backgroundColor
         originalButton.isSelected = TGPhotoPickerConfig.shared.isShowOriginal
-        originalButton.addTarget(self,action: #selector(showOriginalAction(_:)),for: UIControlEvents.touchUpInside)
+        originalButton.addTarget(self,action: #selector(showOriginalAction(_:)),for: UIControl.Event.touchUpInside)
         self.view.addSubview(originalButton)
         
         let indicatorButton: UIButton = UIButton(frame: CGRect(x: 0, y: TGPhotoPickerConfig.ScreenH-160, width: TGPhotoPickerConfig.ScreenW/3, height: 20))
@@ -424,111 +424,111 @@ class ViewController: UIViewController {
         indicatorButton.setTitleColor(TGPhotoPickerConfig.shared.tinColor, for: .selected)
         indicatorButton.backgroundColor = self.view.backgroundColor
         indicatorButton.isSelected = TGPhotoPickerConfig.shared.isShowIndicator
-        indicatorButton.addTarget(self,action: #selector(showIndicatorAction(_:)),for: UIControlEvents.touchUpInside)
+        indicatorButton.addTarget(self,action: #selector(showIndicatorAction(_:)),for: UIControl.Event.touchUpInside)
         self.view.addSubview(indicatorButton)
     }
     
-    func showIndicatorAction(_ sender: UIButton) {
+    @objc func showIndicatorAction(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         TGPhotoPickerConfig.shared.isShowIndicator = sender.isSelected
     }
     
-    func showPreviewAction(_ sender: UIButton) {
+    @objc func showPreviewAction(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         TGPhotoPickerConfig.shared.isShowPreviewButton = sender.isSelected
     }
     
-    func showReselectAction(_ sender: UIButton) {
+    @objc func showReselectAction(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         TGPhotoPickerConfig.shared.isShowReselect = sender.isSelected
     }
     
-    func showOriginalAction(_ sender: UIButton) {
+    @objc func showOriginalAction(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         TGPhotoPickerConfig.shared.isShowOriginal = sender.isSelected
     }
     
-    func showEditAction(_ sender: UIButton) {
+    @objc func showEditAction(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         TGPhotoPickerConfig.shared.isShowEditButton = sender.isSelected
     }
     
-    func useCustomActionSheetAction(_ sender: UIButton) {
+    @objc func useCustomActionSheetAction(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         TGPhotoPickerConfig.shared.useCustomActionSheet = sender.isSelected
     }
     
-    func saveImageAction(_ sender: UIButton) {
+    @objc func saveImageAction(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         TGPhotoPickerConfig.shared.saveImageToPhotoAlbum = sender.isSelected
     }
     
-    func useiOS8CameraAction(_ sender: UIButton) {
+    @objc func useiOS8CameraAction(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         TGPhotoPickerConfig.shared.useiOS8Camera = sender.isSelected
     }
     
-    func isRemoveButtonHiddenAction(_ sender: UIButton) {
+    @objc func isRemoveButtonHiddenAction(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         TGPhotoPickerConfig.shared.isRemoveButtonHidden = sender.isSelected
     }
     
-    func leftAndRigthNoPaddingAction(_ sender: UIButton) {
+    @objc func leftAndRigthNoPaddingAction(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         TGPhotoPickerConfig.shared.leftAndRigthNoPadding = sender.isSelected
     }
     
-    func showBorderAction(_ sender: UIButton) {
+    @objc func showBorderAction(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         TGPhotoPickerConfig.shared.isShowBorder = sender.isSelected
     }
     
-    func useCustomSmartCollectionsMaskAction(_ sender: UIButton) {
+    @objc func useCustomSmartCollectionsMaskAction(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         TGPhotoPickerConfig.shared.useCustomSmartCollectionsMask = sender.isSelected
     }
     
-    func useChineseAlbumNameAction(_ sender: UIButton) {
+    @objc func useChineseAlbumNameAction(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         TGPhotoPickerConfig.shared.useChineseAlbumName = sender.isSelected
     }
     
-    func showEmptyAlbumAction(_ sender: UIButton) {
+    @objc func showEmptyAlbumAction(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         TGPhotoPickerConfig.shared.isShowEmptyAlbum = sender.isSelected
     }
     
-    func ascendingAction(_ sender: UIButton) {
+    @objc func ascendingAction(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         TGPhotoPickerConfig.shared.ascending = sender.isSelected
     }
     
-    func checkboxAnimateAction(_ sender: UIButton) {
+    @objc func checkboxAnimateAction(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         TGPhotoPickerConfig.shared.checkboxAnimate = sender.isSelected
     }
     
-    func showSelectNumberAction(_ sender: UIButton) {
+    @objc func showSelectNumberAction(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         TGPhotoPickerConfig.shared.isShowNumber = sender.isSelected
     }
     
-    func immediateTapSelectAction(_ sender: UIButton) {
+    @objc func immediateTapSelectAction(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         TGPhotoPickerConfig.shared.immediateTapSelect = sender.isSelected
     }
     
-    func useSelectMaskAction(_ sender: UIButton) {
+    @objc func useSelectMaskAction(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         TGPhotoPickerConfig.shared.useSelectMask = sender.isSelected
     }
     
-    func maxImageCountChangedAction(_ sender: UISlider) {
+    @objc func maxImageCountChangedAction(_ sender: UISlider) {
         maxImageCountLabel.text = "maxImage(\(Int(sender.value)))"
         TGPhotoPickerConfig.shared.maxImageCount = Int(sender.value)
     }
     
-    func randomColor(_ sender: UIButton) {
+    @objc func randomColor(_ sender: UIButton) {
         let r = CGFloat(arc4random() % 256) / 255.0
         let g = CGFloat(arc4random() % 256) / 255.0
         let b = CGFloat(arc4random() % 256) / 255.0
@@ -537,43 +537,43 @@ class ViewController: UIViewController {
         TGPhotoPickerConfig.shared.tinColor = color
     }
     
-    func checkboxCellSizeAction(_ sender: UISlider) {
+    @objc func checkboxCellSizeAction(_ sender: UISlider) {
         checkboxCellSizeLabel.text = "checkWH(\(String(format: "%.2f",sender.value)))"
         TGPhotoPickerConfig.shared.checkboxCellWH = CGFloat(sender.value)
     }
     
-    func shadowWHAction(_ sender: UISlider) {
+    @objc func shadowWHAction(_ sender: UISlider) {
         shadowWHLabel.text = "shadowWH(\(String(format: "%.2f",sender.value)))"
         TGPhotoPickerConfig.shared.shadowW = CGFloat(sender.value)
         TGPhotoPickerConfig.shared.shadowH = CGFloat(sender.value)
     }
     
-    func maskAlphaChangedAction(_ sender: UISlider) {
+    @objc func maskAlphaChangedAction(_ sender: UISlider) {
         maskAlphaLabel.text = "maskAlpha(\(String(format: "%.2f",sender.value)))"
         TGPhotoPickerConfig.shared.maskAlpha = CGFloat(sender.value)
     }
     
-    func endAlphaChangedAction(_ sender: UISlider) {
+    @objc func endAlphaChangedAction(_ sender: UISlider) {
         endAlphaLabel.text = "endAlpha(\(String(format: "%.2f",sender.value)))"
         TGPhotoPickerConfig.shared.checkboxEndingAlpha = CGFloat(sender.value)
     }
     
-    func lineWidthChangedAction(_ sender: UISlider) {
+    @objc func lineWidthChangedAction(_ sender: UISlider) {
         lineWidthLabel.text = "lineWidth(\(String(format: "%.2f",sender.value)))"
         TGPhotoPickerConfig.shared.checkboxLineW = CGFloat(sender.value)
     }
     
-    func paddingChangedAction(_ sender: UISlider) {
+    @objc func paddingChangedAction(_ sender: UISlider) {
         paddingLabel.text = "padding(\(String(format: "%.2f",sender.value)))"
         TGPhotoPickerConfig.shared.checkboxPadding = CGFloat(sender.value)
     }
     
-    func cornerChangedAction(_ sender: UISlider) {
+    @objc func cornerChangedAction(_ sender: UISlider) {
         cornerLabel.text = "corner(\(String(format: "%.2f",sender.value)))"
         TGPhotoPickerConfig.shared.checkboxCorner = CGFloat(sender.value)
     }
     
-    func tap(_ sender: UIButton) {
+    @objc func tap(_ sender: UIButton) {
         TGPhotoPickerConfig.shared.checkboxType = TGCheckboxType(rawValue: sender.tag-1000)!
         TGPhotoPickerConfig.shared.removeType = TGCheckboxType(rawValue: sender.tag-1000)!
         for i in 0...TGCheckboxType.star.rawValue{
@@ -582,7 +582,7 @@ class ViewController: UIViewController {
         sender.isSelected = true
     }
     
-    func indicatorPosition(_ sender: UIButton) {
+    @objc func indicatorPosition(_ sender: UIButton) {
         TGPhotoPickerConfig.shared.indicatorPosition = TGIndicatorPosition(rawValue: sender.tag-4000)!
         for i in 0...TGIndicatorPosition.inTopBar.rawValue{
             (self.view.viewWithTag(4000+i) as! UIButton).isSelected = false
@@ -590,7 +590,7 @@ class ViewController: UIViewController {
         sender.isSelected = true
     }
     
-    func selectKind(_ sender: UIButton) {
+    @objc func selectKind(_ sender: UIButton) {
         TGPhotoPickerConfig.shared.selectKind = TGSelectKind(rawValue: sender.tag-3000)!
         for i in 0...TGSelectKind.all.rawValue{
             (self.view.viewWithTag(3000+i) as! UIButton).isSelected = false
@@ -598,7 +598,7 @@ class ViewController: UIViewController {
         sender.isSelected = true
     }
 
-    func position(_ sender: UIButton) {
+    @objc func position(_ sender: UIButton) {
         TGPhotoPickerConfig.shared.checkboxPosition = TGCheckboxPosition(rawValue: sender.tag-2000)!
         TGPhotoPickerConfig.shared.removePosition = TGCheckboxPosition(rawValue: sender.tag-2000)!
         for i in 0...TGCheckboxPosition.bottomRight.rawValue{

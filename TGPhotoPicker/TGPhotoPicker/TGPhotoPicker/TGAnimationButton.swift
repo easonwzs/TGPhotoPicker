@@ -38,9 +38,9 @@ class TGAnimationButton: UIButton {
         }
     }
     
-    var activityIndicatorViewStyle: UIActivityIndicatorViewStyle = .gray{
+    var activityIndicatorViewStyle: UIActivityIndicatorView.Style = .gray{
         didSet{
-            indicatorV.activityIndicatorViewStyle = activityIndicatorViewStyle
+            indicatorV.style = activityIndicatorViewStyle
         }
     }
     
@@ -99,7 +99,7 @@ class TGAnimationButton: UIButton {
         messageLbl.font = titleLabel?.font
         backV.addSubview(messageLbl)
         
-        indicatorV.activityIndicatorViewStyle = activityIndicatorViewStyle
+        indicatorV.style = activityIndicatorViewStyle
         backV.addSubview(indicatorV)
         
         backV.h = self.h

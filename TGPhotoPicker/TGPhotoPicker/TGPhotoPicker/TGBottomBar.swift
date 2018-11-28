@@ -58,7 +58,9 @@ class TGBottomBar: UIView {
                 if TGPhotoPickerConfig.shared.isShowIndicator {
                     self.addSubview(indicatorLabel)
                     indicatorLabel.isHidden = false
-                    indicatorLabel.x = (prevBtn?.rightX ?? 0) + ( (doneButton?.left ?? self.w) - (prevBtn?.rightX ?? 0) - indicatorLabel.w) / 2
+//                    indicatorLabel.x = (prevBtn?.rightX ?? 0) +
+                    let vv = ((doneButton?.left ?? self.w) - (prevBtn?.rightX ?? 0) - indicatorLabel.w) / 2
+                    indicatorLabel.x = (prevBtn?.rightX ?? 0) + vv
                 }
             }else if  host == ("\(type(of: TGAlbumPhotoPreviewVC.self))" as NSString).components(separatedBy: ".").first!{
                 //加previewCVH
@@ -173,17 +175,17 @@ class TGBottomBar: UIView {
 
         if TGPhotoPickerConfig.shared.isShowIndicator{
             let attributeString = NSMutableAttributedString(string:"\(number) / \(TGPhotoPickerConfig.shared.maxImageCount)")
-            attributeString.addAttribute(NSFontAttributeName,
+            attributeString.addAttribute(NSAttributedString.Key.font,
                                          value: UIFont.boldSystemFont(ofSize: TGPhotoPickerConfig.shared.fontSize+3),
-                                         range: NSMakeRange(0,"\(number) ".characters.count))
+                                         range: NSMakeRange(0,"\(number) ".count))
             
-            attributeString.addAttribute(NSFontAttributeName,
+            attributeString.addAttribute(NSAttributedString.Key.font,
                                          value: UIFont.boldSystemFont(ofSize: TGPhotoPickerConfig.shared.fontSize),
-                                         range: NSMakeRange("\(number) ".characters.count,1))
+                                         range: NSMakeRange("\(number) ".count,1))
             
-            attributeString.addAttribute(NSFontAttributeName,
+            attributeString.addAttribute(NSAttributedString.Key.font,
                                          value: UIFont.systemFont(ofSize: TGPhotoPickerConfig.shared.fontSize-3),
-                                         range: NSMakeRange("\(number) / ".characters.count,"\(TGPhotoPickerConfig.shared.maxImageCount)".characters.count))
+                                         range: NSMakeRange("\(number) / ".count,"\(TGPhotoPickerConfig.shared.maxImageCount)".count))
             indicatorLabel.attributedText = attributeString
         }else{
             let addStr = number > 0 ? "("+String(number)+")" : ""

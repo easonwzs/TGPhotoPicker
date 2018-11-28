@@ -129,9 +129,9 @@ open class TGImagePresenter{
         case resizable
     }
     
-    fileprivate static let defaultGradientLocations: [CGFloat] = [0, 1]
-    fileprivate static let defaultGradientFrom: CGPoint = .zero
-    fileprivate static let defaultGradientTo: CGPoint = CGPoint(x: 0, y: 1)
+    public static let defaultGradientLocations: [CGFloat] = [0, 1]
+    public static let defaultGradientFrom: CGPoint = .zero
+    public static let defaultGradientTo: CGPoint = CGPoint(x: 0, y: 1)
     
     fileprivate var colors: [UIColor] = [.clear]
     fileprivate var colorLocations: [CGFloat] = defaultGradientLocations

@@ -68,7 +68,7 @@ class TGTopBar: UIView {
 //                context.move(to: CGPoint(x: 10, y: 15))
 //                context.addLine(to: CGPoint(x: 17, y: 23))
                 context.strokePath()
-            }), for: UIControlState.normal)//config
+            }), for: UIControl.State.normal)//config
         backBtn.addTarget(self, action: #selector(back), for: .touchUpInside)
         self.addSubview(backBtn)
         
@@ -112,7 +112,7 @@ class TGTopBar: UIView {
             self.checkboxSelect!.isHidden = false
             if TGPhotoPickerConfig.shared.checkboxAnimate {
                 self.checkboxSelect!.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
-                UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 8, options: [UIViewAnimationOptions.curveEaseIn], animations: {
+                UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 8, options: [UIView.AnimationOptions.curveEaseIn], animations: {
                     self.checkboxSelect!.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
                 }, completion: { _ in
                     UIView.animate(withDuration: 0.25, animations: {
@@ -133,7 +133,7 @@ class TGTopBar: UIView {
             let range = TGPhotoPickerConfig.shared.errorImageMaxSelect.range(of:"#")
             var error = TGPhotoPickerConfig.shared.errorImageMaxSelect
             error.replaceSubrange(range!, with: String(less))
-            let alert = UIAlertController(title: nil, message: (selectNum > 0 ? TGPhotoPickerConfig.shared.leftTitle : "") + error, preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: nil, message: (selectNum > 0 ? TGPhotoPickerConfig.shared.leftTitle : "") + error, preferredStyle: UIAlertController.Style.alert)
             let confirmAction = UIAlertAction(title: TGPhotoPickerConfig.shared.confirmTitle, style: .default, handler: nil)
             alert.addAction(confirmAction)
             self.source?.present(alert, animated: true, completion: nil)

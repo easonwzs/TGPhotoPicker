@@ -94,7 +94,7 @@ class TGPhotoCell: UICollectionViewCell {
                     }
                     if TGPhotoPickerConfig.shared.checkboxAnimate{
                         selectBtn.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-                        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.3, initialSpringVelocity: 10, options: UIViewAnimationOptions.curveEaseIn, animations: {
+                        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.3, initialSpringVelocity: 10, options: UIView.AnimationOptions.curveEaseIn, animations: {
                             self.selectBtn.transform = CGAffineTransform.identity
                         }, completion: nil)
                     }
@@ -119,7 +119,7 @@ class TGPhotoCell: UICollectionViewCell {
             let range = TGPhotoPickerConfig.shared.errorImageMaxSelect.range(of:"#")
             var error = TGPhotoPickerConfig.shared.errorImageMaxSelect
             error.replaceSubrange(range!, with: String(less))
-            let alert = UIAlertController(title: nil, message: ((nav?.alreadySelectedImageNum)! > 0 ? TGPhotoPickerConfig.shared.leftTitle : "") + error, preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: nil, message: ((nav?.alreadySelectedImageNum)! > 0 ? TGPhotoPickerConfig.shared.leftTitle : "") + error, preferredStyle: UIAlertController.Style.alert)
             let confirmAction = UIAlertAction(title:TGPhotoPickerConfig.shared.confirmTitle, style: .default, handler: nil)
             alert.addAction(confirmAction)
             self.vc?.present(alert, animated: true, completion: nil)
@@ -255,11 +255,11 @@ class TGPhotoCollectionVC: UICollectionViewController {
         let originFrame = self.collectionView!.frame
         self.collectionView!.frame = CGRect(x:originFrame.origin.x, y:originFrame.origin.y, width:originFrame.size.width, height: originFrame.height - ((TGPhotoPickerConfig.shared.barBGColor.getAlpha() != 1) ? 0 : TGPhotoPickerConfig.shared.toolBarH))
         resetCacheAssets()
-        self.collectionView?.contentInset = UIEdgeInsetsMake(
-            TGPhotoPickerConfig.shared.padding,
-            TGPhotoPickerConfig.shared.leftAndRigthNoPadding ? 0 : TGPhotoPickerConfig.shared.padding,
-            TGPhotoPickerConfig.shared.padding + ((TGPhotoPickerConfig.shared.barBGColor.getAlpha() != 1) ? TGPhotoPickerConfig.shared.toolBarH : 0),
-            TGPhotoPickerConfig.shared.leftAndRigthNoPadding ? 0 : TGPhotoPickerConfig.shared.padding
+        self.collectionView?.contentInset = UIEdgeInsets(
+            top: TGPhotoPickerConfig.shared.padding,
+            left: TGPhotoPickerConfig.shared.leftAndRigthNoPadding ? 0 : TGPhotoPickerConfig.shared.padding,
+            bottom: TGPhotoPickerConfig.shared.padding + ((TGPhotoPickerConfig.shared.barBGColor.getAlpha() != 1) ? TGPhotoPickerConfig.shared.toolBarH : 0),
+            right: TGPhotoPickerConfig.shared.leftAndRigthNoPadding ? 0 : TGPhotoPickerConfig.shared.padding
         )
         self.collectionView?.backgroundColor = .white
         self.collectionView?.register(TGPhotoCell.self, forCellWithReuseIdentifier: reuseIdentifier)
@@ -298,7 +298,7 @@ class TGPhotoCollectionVC: UICollectionViewController {
                 context.strokePath()
             }), style: .plain, target: self, action: #selector(back))
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: TGPhotoPickerConfig.shared.cancelTitle, style: UIBarButtonItemStyle.plain, target: self, action: #selector(cancel))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: TGPhotoPickerConfig.shared.cancelTitle, style: UIBarButtonItem.Style.plain, target: self, action: #selector(cancel))
     }
     
     @objc private func back(){

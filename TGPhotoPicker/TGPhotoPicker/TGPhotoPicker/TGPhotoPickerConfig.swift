@@ -529,10 +529,10 @@ class TGPhotoPickerConfig {
     var transitionType: String = "oglFlip"
     
     /** 图像质量 */
-    var sessionPreset: String = AVCaptureSessionPreset1280x720
+    var sessionPreset: String = AVCaptureSession.Preset.hd1280x720.rawValue
     
     /** 拍摄视图的伸缩模式*/
-    var videoGravity: String = AVLayerVideoGravityResizeAspectFill
+    var videoGravity: String = AVLayerVideoGravity.resizeAspectFill.rawValue
     
     /** 广角*/
     var captureDeviceType: TGCaptureDeviceType = .builtInWideAngleCamera
@@ -1124,7 +1124,7 @@ class TGPhotoPickerConfig {
         reduceFontSize *= UIScreen.main.scale 
         let font: UIFont = L >= 2 ? UIFont.boldSystemFont(ofSize: reduceFontSize) : UIFont.systemFont(ofSize: reduceFontSize)
         
-        var attrs = [NSFontAttributeName:font,NSForegroundColorAttributeName: UIColor.white]
+        var attrs = [NSAttributedString.Key.font:font,NSAttributedString.Key.foregroundColor: UIColor.white]
         //NSShadowAttributeName NSVerticalGlyphFormAttributeName，NSObliquenessAttributeName，NSExpansionAttributeName
         if type == .onlyCheckbox {
             let shadow = NSShadow()
@@ -1132,9 +1132,9 @@ class TGPhotoPickerConfig {
             shadow.shadowColor = UIColor.gray
             shadow.shadowOffset = CGSize(width: shadowW, height: shadowH)
             if shadowW>0 || shadowH>0{
-                attrs = [NSFontAttributeName:UIFont.boldSystemFont(ofSize: fontSize),NSForegroundColorAttributeName: tinColor,NSShadowAttributeName:shadow,NSVerticalGlyphFormAttributeName:0 as NSNumber]
+                attrs = [NSAttributedString.Key.font:UIFont.boldSystemFont(ofSize: fontSize),NSAttributedString.Key.foregroundColor: tinColor,NSAttributedString.Key.shadow:shadow,NSAttributedString.Key.verticalGlyphForm:0 as NSNumber]
             }else{
-                attrs = [NSFontAttributeName:UIFont.boldSystemFont(ofSize: fontSize),NSForegroundColorAttributeName: tinColor]
+                attrs = [NSAttributedString.Key.font:UIFont.boldSystemFont(ofSize: fontSize),NSAttributedString.Key.foregroundColor: tinColor]
             }
         }
         

@@ -23,9 +23,9 @@ class TGPhotoImageManager: PHCachingImageManager {
                     let canceled = info[PHImageCancelledKey] as? Bool
                     let error = info[PHImageErrorKey] as? NSError
                     if canceled == nil && error == nil && image != nil {
-                        var data = UIImageJPEGRepresentation(image!, TGPhotoPickerConfig.shared.compressionQuality) 
+                        var data = image!.jpegData(compressionQuality: TGPhotoPickerConfig.shared.compressionQuality)
                         if data == nil{
-                            data = UIImagePNGRepresentation(image!)
+                            data = image!.pngData()
                         }
                         completion(image, data, info as [NSObject : Any]?)
                     }

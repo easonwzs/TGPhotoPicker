@@ -108,7 +108,7 @@ class TGPhotoPreviewVC: UIViewController {
     @objc private func dissmiss(){
         let animation = CATransition()
         animation.duration = 0.2
-        animation.subtype = kCATransitionFromRight
+        animation.subtype = CATransitionSubtype.fromRight
         UIApplication.shared.keyWindow?.layer.add(animation, forKey: nil)
         dismiss(animated: false, completion: nil)
     }
@@ -164,17 +164,17 @@ class TGPhotoPreviewVC: UIViewController {
     fileprivate func updatePageTitle(){
         //self.title =  String(self.currentPage+1) + "/" + String(self.selectImages.count)
         let attributeString = NSMutableAttributedString(string:"\(self.currentPage+1) / \(self.selectImages.count)")
-        attributeString.addAttribute(NSFontAttributeName,
+        attributeString.addAttribute(NSAttributedString.Key.font,
                                      value: UIFont.boldSystemFont(ofSize: TGPhotoPickerConfig.shared.fontSize+3),
-                                     range: NSMakeRange(0,"\(self.currentPage+1) ".characters.count))
+                                     range: NSMakeRange(0,"\(self.currentPage+1) ".count))
         
-        attributeString.addAttribute(NSFontAttributeName,
+        attributeString.addAttribute(NSAttributedString.Key.font,
                                      value: UIFont.boldSystemFont(ofSize: TGPhotoPickerConfig.shared.fontSize),
-                                     range: NSMakeRange("\(self.currentPage+1) ".characters.count,1))
+                                     range: NSMakeRange("\(self.currentPage+1) ".count,1))
         
-        attributeString.addAttribute(NSFontAttributeName,
+        attributeString.addAttribute(NSAttributedString.Key.font,
                                      value: UIFont.systemFont(ofSize: TGPhotoPickerConfig.shared.fontSize-3),
-                                     range: NSMakeRange("\(self.currentPage+1) / ".characters.count,"\(self.selectImages.count)".characters.count))
+                                     range: NSMakeRange("\(self.currentPage+1) / ".count,"\(self.selectImages.count)".count))
         indicatorLabel.attributedText = attributeString
     }
     
