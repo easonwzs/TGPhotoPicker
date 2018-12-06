@@ -19,8 +19,8 @@ protocol TGPhotoPickerDelegate: class{
     func onImageSelectFinished(images: [PHAsset])
 }
 
-typealias HandlePhotosBlock = (_ asset:[PHAsset?], _ smallImage:[UIImage?],_ bigImage:[UIImage?],_ imageData:[Data?]) -> Void
-typealias HandlePhotoModelsBlock = (_ photoMs:[TGPhotoM]) -> Void
+public typealias HandlePhotosBlock = (_ asset:[PHAsset?], _ smallImage:[UIImage?],_ bigImage:[UIImage?],_ imageData:[Data?]) -> Void
+public typealias HandlePhotoModelsBlock = (_ photoMs:[TGPhotoM]) -> Void
 
 class TGPhotoPickerVC: UINavigationController {
 

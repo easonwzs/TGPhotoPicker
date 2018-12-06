@@ -9,10 +9,10 @@
 import UIKit
 import Photos
 
-class TGPhotoPickerManager: NSObject {
-    static let shared = TGPhotoPickerManager()
-    var handlePhotosBlock: HandlePhotosBlock?
-    var handlePhotoModelsBlock: HandlePhotoModelsBlock?
+public class TGPhotoPickerManager: NSObject {
+    public static let shared = TGPhotoPickerManager()
+    public var handlePhotosBlock: HandlePhotosBlock?
+    public var handlePhotoModelsBlock: HandlePhotoModelsBlock?
     
     private override init() {
         super.init()
@@ -20,7 +20,7 @@ class TGPhotoPickerManager: NSObject {
     
     fileprivate lazy var config: TGPhotoPickerConfig = TGPhotoPickerConfig.shared
     
-    func takePhotos(_ showCamera: Bool, _ showAlbum: Bool, _ configBlock:((_ config:TGPhotoPickerConfig)->())? = nil, _ completeHandler: @escaping HandlePhotosBlock){
+    public func takePhotos(_ showCamera: Bool, _ showAlbum: Bool, _ configBlock:((_ config:TGPhotoPickerConfig)->())? = nil, _ completeHandler: @escaping HandlePhotosBlock){
         configBlock?(self.config)
         self.handlePhotosBlock = completeHandler
         
@@ -45,7 +45,7 @@ class TGPhotoPickerManager: NSObject {
         UIApplication.shared.keyWindow?.currentVC()?.present(ac, animated: true, completion: nil)
     }
     
-    func takePhotoModels(_ showCamera: Bool, _ showAlbum: Bool, _ configBlock:((_ config:TGPhotoPickerConfig)->())? = nil, _ completeHandler: @escaping HandlePhotoModelsBlock){
+    public func takePhotoModels(_ showCamera: Bool, _ showAlbum: Bool, _ configBlock:((_ config:TGPhotoPickerConfig)->())? = nil, _ completeHandler: @escaping HandlePhotoModelsBlock){
         configBlock?(self.config)
         self.handlePhotoModelsBlock = completeHandler
         
@@ -70,7 +70,7 @@ class TGPhotoPickerManager: NSObject {
         UIApplication.shared.keyWindow?.currentVC()?.present(ac, animated: true, completion: nil)
     }
     
-    func authorizePhotoLibrary(authorizeClosure:@escaping (PHAuthorizationStatus)->()){
+    public func authorizePhotoLibrary(authorizeClosure:@escaping (PHAuthorizationStatus)->()){
         let status = PHPhotoLibrary.authorizationStatus()
         
         if status == .authorized{
@@ -89,7 +89,7 @@ class TGPhotoPickerManager: NSObject {
         }
     }
     
-    func authorizeCamera(authorizeClosure:@escaping (AVAuthorizationStatus)->()){
+    public func authorizeCamera(authorizeClosure:@escaping (AVAuthorizationStatus)->()){
         let status = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
         
         if status == .authorized{

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "TGPhotoPicker"
-  s.version      = "0.0.6"
+  s.version      = "0.0.7"
   s.summary      = "TGPhotoPicker.git"
 
   s.description  = <<-DESC

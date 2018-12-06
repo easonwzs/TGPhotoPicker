@@ -15,9 +15,9 @@ protocol TGPhotoPickerCellDelegate: class {
 
 private let reuseIdentifier = "TGPhotoPickerCell"
 
-class TGPhotoPicker: UIView {
+public class TGPhotoPicker: UIView {
 
-    lazy var tgphotos = [TGPhotoM]()
+    public lazy var tgphotos = [TGPhotoM]()
     
     fileprivate weak var vc: UIViewController?
     fileprivate weak var collectionView: UICollectionView?
@@ -35,7 +35,7 @@ class TGPhotoPicker: UIView {
     fileprivate var fromIndex: Int = -1
     fileprivate var toIndex: Int = -1
     
-    init(_ vc: UIViewController, frame: CGRect,_ configBlock:((_ config:TGPhotoPickerConfig)->())? = nil) {
+    public init(_ vc: UIViewController, frame: CGRect,_ configBlock:((_ config:TGPhotoPickerConfig)->())? = nil) {
         super.init(frame: frame)
         self.backgroundColor = .white
         self.vc = vc
@@ -92,15 +92,15 @@ class TGPhotoPicker: UIView {
 }
 
 extension TGPhotoPicker : UICollectionViewDataSource{
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+    private func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return tgphotos.count == config.maxImageCount ? tgphotos.count :  tgphotos.count + 1
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! TGPickerCell
         cell.photoM = (indexPath.row == tgphotos.count) ? nil : tgphotos[indexPath.row]
         //cell.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(longPress)))

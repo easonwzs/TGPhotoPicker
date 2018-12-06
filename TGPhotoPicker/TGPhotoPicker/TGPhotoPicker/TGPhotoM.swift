@@ -9,11 +9,11 @@
 import UIKit
 import Photos
 
-class TGPhotoM: NSObject {
-    var smallImage: UIImage?
-    var bigImage: UIImage?
-    var imageData: Data?
-    var asset: PHAsset?{
+public class TGPhotoM: NSObject {
+    public var smallImage: UIImage?
+    public var bigImage: UIImage?
+    public var imageData: Data?
+    public var asset: PHAsset?{
         didSet{
             if self.asset?.mediaType == .video{
                 if self.asset?.duration == nil{
@@ -24,11 +24,11 @@ class TGPhotoM: NSObject {
             }
         }
     }
-    var order: Int = 0
+    public var order: Int = 0
     
-    var videoLength: String?
+    public var videoLength: String?
     
-    convenience init(asset: PHAsset) {
+    public convenience init(asset: PHAsset) {
         self.init()
         
         let imageManeger = PHImageManager()
@@ -64,7 +64,7 @@ class TGPhotoM: NSObject {
         })
     }
     
-    class func getImagesAndDatas(photos:[PHAsset], imageData:@escaping(_ photoArr: [TGPhotoM])->()){
+    public class func getImagesAndDatas(photos:[PHAsset], imageData:@escaping(_ photoArr: [TGPhotoM])->()){
         let smallOptions = PHImageRequestOptions()
         smallOptions.deliveryMode = .highQualityFormat
         smallOptions.resizeMode = .fast
@@ -109,7 +109,7 @@ class TGPhotoM: NSObject {
         }
     }
     
-    static func getNewTimeFromDuration(duration:Double) -> String{
+    public static func getNewTimeFromDuration(duration:Double) -> String{
         var newTimer = ""
         if duration < 10 {
             newTimer = String(format: "0:0%d", arguments: [Int(duration)])

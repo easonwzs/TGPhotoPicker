@@ -10,20 +10,20 @@ import UIKit
 import AVFoundation
 import Photos
 
-enum TGPhotoPickerType: Int {
+public enum TGPhotoPickerType: Int {
     case normal
     case wechat
     case weibo
 }
 
-enum TGCheckboxPosition: Int{
+public enum TGCheckboxPosition: Int{
     case topLeft
     case topRight
     case bottomLeft
     case bottomRight
 }
 
-enum TGCheckboxType: Int{
+public enum TGCheckboxType: Int{
     case onlyCheckbox
     case circle
     case square
@@ -34,33 +34,33 @@ enum TGCheckboxType: Int{
     case star
 }
 
-enum TGCaptureDeviceType: String{
+public enum TGCaptureDeviceType: String{
     case builtInMicrophone = "AVCaptureDeviceTypeBuiltInMicrophone"
     case builtInWideAngleCamera = "AVCaptureDeviceTypeBuiltInWideAngleCamera"
     case builtInTelephotoCamera = "AVCaptureDeviceTypeBuiltInTelephotoCamera"
     case builtInDualCamera = "AVCaptureDeviceTypeBuiltInDualCamera"
 }
 
-enum TGSelectKind: Int{
+public enum TGSelectKind: Int{
     case onlyPhoto
     case onlyLive
     case onlyVideo
     case all
 }
 
-enum TGIndicatorPosition: Int{
+public enum TGIndicatorPosition: Int{
     case top
     case bottom
     case inBottomBar
     case inTopBar
 }
 
-class TGPhotoPickerConfig {
-    static let ScreenW = UIScreen.main.bounds.width
-    static let ScreenH = UIScreen.main.bounds.height
-    static let factor: CGFloat = 0.111111
+public class TGPhotoPickerConfig {
+    public static let ScreenW = UIScreen.main.bounds.width
+    public static let ScreenH = UIScreen.main.bounds.height
+    public static let factor: CGFloat = 0.111111
     
-    static let shared : TGPhotoPickerConfig = TGPhotoPickerConfig()
+    public static let shared : TGPhotoPickerConfig = TGPhotoPickerConfig()
     private init(){
         //如果相加的宽大于屏宽 那么需要减少每个cell的宽(iPhone 5)
         let maxCellW = (TGPhotoPickerConfig.ScreenW - (mainColCount+(leftAndRigthNoPadding ? -1 : 1)) * padding)/mainColCount
@@ -68,25 +68,25 @@ class TGPhotoPickerConfig {
     }
     
     /** 与useCustomSmartCollectionsMask结合使用,当useCustomSmartCollectionsMask为true时过滤需要显示smartAlbum的Album类型*/
-    var customSmartCollections = [
+    public var customSmartCollections = [
         PHAssetCollectionSubtype.smartAlbumUserLibrary,//Camera Roll
         PHAssetCollectionSubtype.smartAlbumRecentlyAdded
     ]
     
     /** 使用自定义的PHAssetCollectionSubtype集合来过滤显示自己想要的相册夹,如想显示慢动作和自拍,那么上面的useCustomSmartCollectionsMask数组中设置为（或添加）[PHAssetCollectionSubtype.smartAlbumSlomoVideos,PHAssetCollectionSubtype.smartAlbumSelfPortraits]*/
-    var useCustomSmartCollectionsMask: Bool = true
+    public var useCustomSmartCollectionsMask: Bool = true
     
     /** 是否使用中文名称显示smartAlbum的Album名*/
-    var useChineseAlbumName: Bool = false
+    public var useChineseAlbumName: Bool = false
     
     /** 空内容的相册夹是否显示 */
-    var isShowEmptyAlbum: Bool = false
+    public var isShowEmptyAlbum: Bool = false
     
     /** 升序排列照片*/
-    var ascending: Bool = false
+    public var ascending: Bool = false
     
     /** 预置的成组配置, 微博 微信*/
-    var type: TGPhotoPickerType = .normal{
+    public var type: TGPhotoPickerType = .normal{
         didSet{
             switch type {
             case .normal: break
@@ -115,7 +115,7 @@ class TGPhotoPickerConfig {
     }
     
     /** 在选择类型为方 带时用到的Corner*/
-    var checkboxCorner: CGFloat = 0{
+    public var checkboxCorner: CGFloat = 0{
         didSet{
             checkboxCorner = checkboxCorner>checkboxCellWH ? checkboxCellWH :(checkboxCorner<0 ? 0 :checkboxCorner)
             cacheNumberImage()
@@ -123,17 +123,17 @@ class TGPhotoPickerConfig {
     }
     
     /** 选择框显示的位置*/
-    var checkboxPosition: TGCheckboxPosition = .topRight{
+    public var checkboxPosition: TGCheckboxPosition = .topRight{
         didSet{
             cacheNumberImage()
         }
     }
     
     /** 移除按钮显示的位置*/
-    var removePosition: TGCheckboxPosition = .topRight
+    public var removePosition: TGCheckboxPosition = .topRight
     
     /** 移除类型,同选择类型*/
-    var removeType: TGCheckboxType = .diagonalBelt{
+    public var removeType: TGCheckboxType = .diagonalBelt{
         didSet{
             switch removeType {
             case .heart,.star:
@@ -144,17 +144,17 @@ class TGPhotoPickerConfig {
     }
     
     /** Alert样式*/
-    var useCustomActionSheet: Bool = true
+    public var useCustomActionSheet: Bool = true
     
     /** 是否显示选择顺序*/
-    var isShowNumber: Bool = true{
+    public var isShowNumber: Bool = true{
         didSet{
             cacheNumberImage()
         }
     }
     
     /** 纯数字模式下显示选择顺序时的数字阴影宽,不需要阴影设置为0*/
-    var shadowW:CGFloat = 1.0{
+    public var shadowW:CGFloat = 1.0{
         didSet{
             shadowW = shadowW>4 ? 4 :(shadowW<0 ? 0 :shadowW)
             cacheNumberImage()
@@ -162,7 +162,7 @@ class TGPhotoPickerConfig {
     }
     
     /** 纯数字模式下显示选择顺序时的数字阴影高,不需要阴影设置为0*/
-    var shadowH:CGFloat = 1.0{
+    public var shadowH:CGFloat = 1.0{
         didSet{
             shadowH = shadowH>4 ? 4 :(shadowH<0 ? 0 :shadowH)
             cacheNumberImage()
@@ -170,7 +170,7 @@ class TGPhotoPickerConfig {
     }
     
     /** 选择框类型（样式） 8种 */
-    var checkboxType: TGCheckboxType = .diagonalBelt{
+    public var checkboxType: TGCheckboxType = .diagonalBelt{
         didSet{
             switch checkboxType {
             case .diagonalBelt,.triangle:
@@ -184,14 +184,14 @@ class TGPhotoPickerConfig {
     }
     
     /** 显示在工具栏上的选择框的大小*/
-    var checkboxBarWH: CGFloat = 30{
+    public var checkboxBarWH: CGFloat = 30{
         didSet{
             checkboxBarWH = checkboxBarWH > (toolBarH - 10) ? (toolBarH - 10) :(checkboxBarWH<(toolBarH - 20) ? (toolBarH - 20) :checkboxBarWH)
         }
     }
     
     /** 显示在照片Cell上的选择框的大小*/
-    var checkboxCellWH: CGFloat = 20{
+    public var checkboxCellWH: CGFloat = 20{
         didSet{
             checkboxCellWH = checkboxCellWH>25 ? 25 :(checkboxCellWH<20 ? 20 :checkboxCellWH)
             cacheNumberImage()
@@ -199,21 +199,21 @@ class TGPhotoPickerConfig {
     }
     
     /** 选择框起始透明度*/
-    var checkboxBeginngAlpha: CGFloat = 1{
+    public var checkboxBeginngAlpha: CGFloat = 1{
         didSet{
             checkboxBeginngAlpha = checkboxBeginngAlpha>1 ? 1 :(checkboxBeginngAlpha<0.2 ? 0.2 :checkboxBeginngAlpha)
         }
     }
     
     /** 选择框的结束透明度, 两者用于选择框渐变效果*/
-    var checkboxEndingAlpha: CGFloat = 1{
+    public var checkboxEndingAlpha: CGFloat = 1{
         didSet{
             checkboxEndingAlpha = checkboxEndingAlpha>1 ? 1 :(checkboxEndingAlpha<0.2 ? 0.2 :checkboxEndingAlpha)
         }
     }
     
     /** 选择框的画线宽度, 工具栏上返回、删除按钮的画线宽度*/
-    var checkboxLineW: CGFloat = 1.5{
+    public var checkboxLineW: CGFloat = 1.5{
         didSet{
             checkboxLineW = checkboxLineW>2 ? 2 : (checkboxLineW<1 ? 1 : checkboxLineW)
             cacheNumberImage()
@@ -221,7 +221,7 @@ class TGPhotoPickerConfig {
     }
     
     /** 选择框的Padding*/
-    var checkboxPadding: CGFloat = 1{
+    public var checkboxPadding: CGFloat = 1{
         didSet{
             checkboxPadding = checkboxPadding>6 ? 6 : (checkboxPadding<0 ? 0 : checkboxPadding)
             cacheNumberImage()
@@ -229,44 +229,44 @@ class TGPhotoPickerConfig {
     }
     
     /** 选择时是否动画效果*/
-    var checkboxAnimate: Bool = true
+    public var checkboxAnimate: Bool = true
     
     /** 选择时或选择到最大照片数量时，当前或其他Cell的遮罩的透明度*/
-    var maskAlpha: CGFloat = 0.6{
+    public var maskAlpha: CGFloat = 0.6{
         didSet{
             maskAlpha = maskAlpha>0.8 ? 0.8 : (maskAlpha<0.3 ? 0.3 :maskAlpha)
         }
     }
     
     /** 使用选择遮罩: false,当选择照片数量达到最大值时,其余照片显示遮罩; true,其余照片不显示遮罩,而是已经选择的照片显示遮罩 */
-    var useSelectMask: Bool = false
+    public var useSelectMask: Bool = false
     
     /** 工具条的高度*/
-    var toolBarH: CGFloat = 44.0{
+    public var toolBarH: CGFloat = 44.0{
         didSet{
             toolBarH = toolBarH < 36 ? 36 : (toolBarH > 44 ? 44 : toolBarH)
         }
     }
     
     /** 预览UICollectionViewController的高度*/
-    var previewCVH: CGFloat = 100{
+    public var previewCVH: CGFloat = 100{
         didSet{
             previewCVH = previewCVH < 80 ? 80 : (previewCVH > 160 ? 160 : previewCVH)
         }
     }
     
     /** 显示预览UICollectionViewController*/
-    var isShowPreviewCV: Bool = true
+    public var isShowPreviewCV: Bool = true
     
     /** 相册类型列表Cell的高度*/
-    var albumCellH: CGFloat = 60.0{
+    public var albumCellH: CGFloat = 60.0{
         didSet{
             albumCellH = albumCellH < 50 ? 50 : (albumCellH > 90 ? 90 : albumCellH)
         }
     }
     
     /** 照片Cell的高宽,即选择时的呈现的宽高*/
-    var selectWH: CGFloat = 80{
+    public var selectWH: CGFloat = 80{
         didSet{
             let maxCellW = (TGPhotoPickerConfig.ScreenW - (colCount+(leftAndRigthNoPadding ? -1 : 1)) * padding)/colCount
             selectWH = selectWH>maxCellW ? maxCellW :(selectWH<60 ? 60 :selectWH)
@@ -274,7 +274,7 @@ class TGPhotoPickerConfig {
     }
     
     /** 控件本身的Cell的宽高,即选择后的呈现的宽高*/
-    var mainCellWH: CGFloat = 80{
+    public var mainCellWH: CGFloat = 80{
         didSet{
             let maxCellW = (TGPhotoPickerConfig.ScreenW - (mainColCount+(leftAndRigthNoPadding ? -1 : 1)) * padding)/mainColCount
             mainCellWH = mainCellWH>maxCellW ? maxCellW :(mainCellWH<60 ? 60 :mainCellWH)
@@ -282,124 +282,124 @@ class TGPhotoPickerConfig {
     }
     
     /** 自动宽高,用于控件本身Cell的宽高自动计算*/
-    var autoSelectWH: Bool = false
+    public var autoSelectWH: Bool = false
     
     /** true,在选择照片界面,点击照片（非checkbox区域）时,不跳转到大图预览界面,而是直接选择或取消选择当前照片; false, 点击照片checkbox区域选择或取消选择当前照片,点击非checkbox区域跳转到大图预览界面*/
-    var immediateTapSelect: Bool = false
+    public var immediateTapSelect: Bool = false
     
     /** 控件或Cell之间布局时的padding*/
-    var padding: CGFloat = 1{
+    public var padding: CGFloat = 1{
         didSet{
             padding = padding>10 ? 10 :(padding<1 ? 1 :padding)
         }
     }
     
     /** 动画时长*/
-    var animateDuration: TimeInterval = 0.5{
+    public var animateDuration: TimeInterval = 0.5{
         didSet{
             animateDuration = animateDuration>2 ? 2 :(animateDuration<0.1 ? 0.1 :animateDuration)
         }
     }
     
     /** 左右没有空白,即选择时呈现的UICollectionView没有contentInset中的左右Inset*/
-    var leftAndRigthNoPadding: Bool = true
+    public var leftAndRigthNoPadding: Bool = true
     
     /** 选择时呈现的UICollectionView的每行列数*/
-    var colCount: CGFloat = 5{
+    public var colCount: CGFloat = 5{
         didSet{
             colCount = colCount < 3 ? 3 : (colCount > 4 ? 4 : colCount)
         }
     }
     
     /** 选择后控件本身呈现的UICollectionView的每行列数*/
-    var mainColCount: CGFloat = 4{
+    public var mainColCount: CGFloat = 4{
         didSet{
             mainColCount = mainColCount > 5 ? 5 : (mainColCount < 2 ? 2 : mainColCount)
         }
     }
     
     /** 完成按钮标题*/
-    var doneTitle = "完成"
+    public var doneTitle = "完成"
     
     /** 完成按钮的宽*/
-    var doneButtonW: CGFloat = 70
+    public var doneButtonW: CGFloat = 70
     
     /** 完成按钮的高*/
-    var doneButtonH: CGFloat = 30.8{
+    public var doneButtonH: CGFloat = 30.8{
         didSet{
             doneButtonH = (doneButtonH > toolBarH * 0.96) ? toolBarH * 0.96 : (doneButtonH < toolBarH * 0.5 ? toolBarH * 0.5 : doneButtonH)
         }
     }
     
     /** 导航工具栏返回按钮图标显示圆边 及 星（star）样式显示圆边*/
-    var isShowBorder: Bool = false
+    public var isShowBorder: Bool = false
     
     /** 分多次选择照片时,剩余照片达到上限时的提示文字*/
-    var leftTitle = "剩余"
+    public var leftTitle = "剩余"
     
     /** 相册类型界面的标题*/
-    var albumTitle = "照片"
+    public var albumTitle = "照片"
     
     /** 确定按钮的标题*/
-    var confirmTitle  = "确定"
+    public var confirmTitle  = "确定"
     
     /** 相机权限*/
-    var cameraUsage = "相机权限未开启"
-    var cameraUsageTip = "请您到 设置->隐私->相机 开启访问权限"
+    public var cameraUsage = "相机权限未开启"
+    public var cameraUsageTip = "请您到 设置->隐私->相机 开启访问权限"
     
     /** 拍照后是否保存照片到相册*/
-    var saveImageToPhotoAlbum: Bool = false
+    public var saveImageToPhotoAlbum: Bool = false
     
-    var saveImageSuccessTip = "保存图片成功"
-    var saveImageFailTip = "保存图片失败"
-    var saveImageTip = "保存图片结果提示"
+    public var saveImageSuccessTip = "保存图片成功"
+    public var saveImageFailTip = "保存图片失败"
+    public var saveImageTip = "保存图片结果提示"
     
     /** 使用iOS8相机: false 根据iOS版本判断使用iOS10或iOS8相机; true 指定使用iOS8相机*/
-    var useiOS8Camera: Bool = false
+    public var useiOS8Camera: Bool = false
     
     /** 相册权限*/
-    var photoLibraryUsage = "照片权限未开启"
-    var photoLibraryUsageTip = "请您到 设置->隐私->照片 开启访问权限"
+    public var photoLibraryUsage = "照片权限未开启"
+    public var photoLibraryUsageTip = "请您到 设置->隐私->照片 开启访问权限"
     
     /** 选择数量达到上限时的提示文字, #为占位符*/
-    var errorImageMaxSelect = "图片选择最多不能超过#张"
+    public var errorImageMaxSelect = "图片选择最多不能超过#张"
     
     /** 拍摄标题*/
-    var cameraTitle = "拍摄"
+    public var cameraTitle = "拍摄"
     
     /** 选择标题*/
-    var selectTitle = "从手机相册选择"
+    public var selectTitle = "从手机相册选择"
     
     /** 取消标题*/
-    var cancelTitle = "取消"
+    public var cancelTitle = "取消"
     
     /** 选择时显示的数字的字体大小等*/
-    var fontSize: CGFloat = 15.0
+    public var fontSize: CGFloat = 15.0
     
     /** 预览照片的最大宽度*/
-    var previewImageFetchMaxW:CGFloat = 600
+    public var previewImageFetchMaxW:CGFloat = 600
     
     /** 工具栏的背景色,有透明部分则全屏穿透效果*/
-    var barBGColor = UIColor(red: 40/255, green: 40/255, blue: 40/255, alpha: 0.9)
+    public var barBGColor = UIColor(red: 40/255, green: 40/255, blue: 40/255, alpha: 0.9)
     
     /** 选择框 、按钮的颜色*/
-    var tinColor = UIColor(red: 7/255, green: 179/255, blue: 20/255, alpha: 1){
+    public var tinColor = UIColor(red: 7/255, green: 179/255, blue: 20/255, alpha: 1){
         didSet{
             cacheNumberImage()
         }
     }
     
     /** 删除按钮的颜色*/
-    var removeHighlightedColor: UIColor = .red
+    public var removeHighlightedColor: UIColor = .red
     
     /** 删除按钮是否隐藏*/
-    var isRemoveButtonHidden: Bool = false
+    public var isRemoveButtonHidden: Bool = false
     
     /** 按钮无效时的文字颜色*/
-    var disabledColor: UIColor = .gray
+    public var disabledColor: UIColor = .gray
     
     /** 最大照片选择数量上限*/
-    var maxImageCount: Int = 9{
+    public var maxImageCount: Int = 9{
         didSet {
             maxImageCount = maxImageCount < 1 ? 1 : (maxImageCount > 99 ? 99 : maxImageCount)
             cacheNumberImage()
@@ -407,31 +407,31 @@ class TGPhotoPickerConfig {
     }
     
     /** 压缩比,0(most)..1(least) 越小图片就越小*/
-    var compressionQuality: CGFloat = 0.5{
+    public var compressionQuality: CGFloat = 0.5{
         didSet {
             compressionQuality = compressionQuality < 0.1 ? 0.1 : compressionQuality
         }
     }
     
     /** 从云端获取照片的缩放比*/
-    var cloudImageScale: CGFloat = 0.5{
+    public var cloudImageScale: CGFloat = 0.5{
         didSet {
             cloudImageScale = cloudImageScale < 0.1 ? 0.1 : cloudImageScale
         }
     }
     
     /** alertView Tag 用于代理*/
-    var alertViewTag: Int = 9999
+    public var alertViewTag: Int = 9999
     
     /** 缓存的选择顺序图像,自动生成*/
-    var cacheNumerImageArr = [UIImage]()
-    var cacheNumerImageForBarArr = [UIImage]()
+    public var cacheNumerImageArr = [UIImage]()
+    public var cacheNumerImageForBarArr = [UIImage]()
     
     /** 相机在选择照片时显示*/
-    var showCarmeraInSelectPhoto: Bool = false
+    public var showCarmeraInSelectPhoto: Bool = false
     
     /** 选择类型，照片、Live、视频、全部*/
-    var selectKind: TGSelectKind = .all{
+    public var selectKind: TGSelectKind = .all{
         didSet{
             if selectKind == .onlyLive{
                 useCustomSmartCollectionsMask = true
@@ -452,67 +452,67 @@ class TGPhotoPickerConfig {
     }
     
     /** 显示指示器（0/9）*/
-    var isShowIndicator: Bool = false
+    public var isShowIndicator: Bool = false
     
     /** 指示器背景色*/
-    var indicatorColor: UIColor = .clear//.lightGray
+    public var indicatorColor: UIColor = .clear//.lightGray
     
     /** 指示器在预览界面的显示位置*/
-    var indicatorPosition: TGIndicatorPosition = .bottom//.top//.inBottomBar
+    public var indicatorPosition: TGIndicatorPosition = .bottom//.top//.inBottomBar
     
     /** 显示预览按钮*/
-    var isShowPreviewButton: Bool = false
+    public var isShowPreviewButton: Bool = false
     
     /** 预览标题*/
-    var previewBottonTitle: String = "预览"
+    public var previewBottonTitle: String = "预览"
     
     /** 显示编辑按钮*/
-    var isShowEditButton: Bool = false
+    public var isShowEditButton: Bool = false
     
     /** 编辑标题*/
-    var editButtonTitle: String = "编辑"
+    public var editButtonTitle: String = "编辑"
     
     /** 只能选择图像和视频一种，不能同时选择两种类型*/
-    var onlySelectPhotoOrVideo: Bool = false
+    public var onlySelectPhotoOrVideo: Bool = false
     
     /** 裁剪宽高比*/
-    var cropScale: CGFloat = 0
+    public var cropScale: CGFloat = 0
     
     /** 显示原图按钮，显示合计选择的大小*/
-    var isShowOriginal: Bool = false
+    public var isShowOriginal: Bool = false
     
     /** 原图按钮标题*/
-    var originalTitle: String = "原图"
+    public var originalTitle: String = "原图"
     
     /** 显示重置按钮*/
-    var isShowReselect: Bool = false
+    public var isShowReselect: Bool = false
     
     /** 重置按钮标题*/
-    var reselectTitle: String = "重置"
+    public var reselectTitle: String = "重置"
     
     /** 拍照保存成功提示*/
-    var showCameraSaveSuccess: Bool = true
+    public var showCameraSaveSuccess: Bool = true
     
     /** 以下为照相配置 8个 */
     /** 按钮分布时边界*/
-    var buttonEdge: UIEdgeInsets = UIEdgeInsets(top: 40, left: 20, bottom: 60, right: 50)
+    public var buttonEdge: UIEdgeInsets = UIEdgeInsets(top: 40, left: 20, bottom: 60, right: 50)
     
     /** 拍摄按钮的大小*/
-    var takeWH: CGFloat = 60{
+    public var takeWH: CGFloat = 60{
         didSet{
             takeWH = takeWH < 50 ? 50 : (takeWH > 80 ? 80 : takeWH)
         }
     }
     
     /** 对焦视图大小*/
-    var focusViewWH: CGFloat = 80{
+    public var focusViewWH: CGFloat = 80{
         didSet{
             focusViewWH = focusViewWH < 50 ? 50 : (focusViewWH > 80 ? 80 : focusViewWH)
         }
     }
     
     /** 拍摄预览时的背景色*/
-    var previewBGColor: UIColor = UIColor(white: 1, alpha: 0.7)
+    public var previewBGColor: UIColor = UIColor(white: 1, alpha: 0.7)
     
     /** 前置后置摄像头切换时的动画类型,可以设置下面值
      kCATransitionFade
@@ -526,19 +526,19 @@ class TGPhotoPickerConfig {
      "cube"
      "oglFlip"
      */
-    var transitionType: String = "oglFlip"
+    public var transitionType: String = "oglFlip"
     
     /** 图像质量 */
-    var sessionPreset: String = AVCaptureSession.Preset.hd1280x720.rawValue
+    public var sessionPreset: String = AVCaptureSession.Preset.hd1280x720.rawValue
     
     /** 拍摄视图的伸缩模式*/
-    var videoGravity: String = AVLayerVideoGravity.resizeAspectFill.rawValue
+    public var videoGravity: String = AVLayerVideoGravity.resizeAspectFill.rawValue
     
     /** 广角*/
-    var captureDeviceType: TGCaptureDeviceType = .builtInWideAngleCamera
+    public var captureDeviceType: TGCaptureDeviceType = .builtInWideAngleCamera
     
     /** 预览Padding*/
-    var previewPadding: CGFloat = 15
+    public var previewPadding: CGFloat = 15
     
     /** 选择和移除路径 */
     private var selectShape: Array<CGFloat> = [3,5,4,6,4,6,6,3]
