@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "TGPhotoPicker"
-  s.version      = "0.0.7"
+  s.version      = "0.0.8"
   s.summary      = "TGPhotoPicker.git"
 
   s.description  = <<-DESC
@@ -13,5 +13,6 @@ the best photo picker plugin in swift(iOS8+) No using picture resources, based o
   s.platform     = :ios, "8.0"
   s.source       = { :git => "https://github.com/easonwzs/TGPhotoPicker.git", :tag => s.version }
   s.source_files = 'TGPhotoPicker/TGPhotoPicker/TGPhotoPicker/**/*'
+  s.resource     = 'TGPhotoPicker/TGPhotoPicker/TGPhotoPicker/TGPhotoPicker.bundle'
   s.requires_arc = true
 end
